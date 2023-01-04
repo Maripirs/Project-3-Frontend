@@ -2,8 +2,8 @@ import "./App.css";
 import React, { useState } from "react";
 import MainPage from "./Pages/MainPage/MainPage";
 import AccessPage from "./Pages/AccessPage/AccessPage";
-import UserContext from "./UserContext";
-import { useContext } from "react";
+// import UserContext from "./UserContext";
+// import { useContext } from "react";
 
 function App() {
 	const [isUserConnected, setIsUserConnected] = useState(false);
@@ -15,7 +15,8 @@ function App() {
 		setUserName: setUserName,
 	};
 	return (
-		<>{isUserConnected ? <MainPage /> : <AccessPage contents={contents} />}</>
+		<MainPage />
+		// <>{isUserConnected ? <MainPage /> : <AccessPage contents={contents} />}</>
 	);
 }
 

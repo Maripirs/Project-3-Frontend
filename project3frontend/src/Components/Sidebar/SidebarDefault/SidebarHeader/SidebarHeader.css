@@ -1,0 +1,28 @@
+.sidebar-header {
+	height: 60px;
+	background-color: #202c33;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.user-info {
+	display: flex;
+	align-items: center;
+}
+.user-picture {
+	width: 35px;
+	height: 35px;
+	border-radius: 20px;
+	background-color: #e9edef;
+	margin: 10px;
+}
+.user-name {
+	color: #e9edef;
+}
+.settings-button {
+	color: #e9edef;
+	font-size: 20px;
+	font-weight: bold;
+	margin-right: 10px;
+}
