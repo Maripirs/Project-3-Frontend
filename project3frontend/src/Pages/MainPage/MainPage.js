@@ -1,6 +1,10 @@
 import "./MainPage.css";
 
 const MainPage = () => {
-	return <div>AccessPage</div>;
+	return (
+		<div className="main-page-background">
+			<div className="main-page-container"></div>
+		</div>
+	);
 };
 export default MainPage;

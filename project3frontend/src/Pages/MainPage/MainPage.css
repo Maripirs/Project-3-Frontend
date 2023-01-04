@@ -1,0 +1,16 @@
+.main-page-background {
+	background-color: #111a21;
+	width: 100vw;
+	height: 100vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.main-page-container {
+	height: calc(100% - 30px);
+	width: calc(100% - 30px);
+	max-width: 1300px;
+	background-color: blue;
+	display: flex;
+	flex-direction: row;
+}

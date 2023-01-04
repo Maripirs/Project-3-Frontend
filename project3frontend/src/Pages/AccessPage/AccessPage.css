@@ -1,0 +1,46 @@
+.AccessPage {
+	flex-grow: 1;
+	display: flex;
+	flex-direction: column;
+}
+.access-header {
+	background-color: #00a884;
+	height: 20vh;
+}
+.access-body {
+	height: 20px;
+	flex-grow: 1;
+	background-color: #111b21;
+}
+
+.page-title {
+	width: 70vh;
+	max-width: 95vw;
+	display: flex;
+	align-items: center;
+}
+
+.title-text {
+	color: white;
+	font: 16px;
+}
+
+.whatsapp-logo {
+	width: 30px;
+	height: 30px;
+	background-color: #00e676;
+	border: solid 2px white;
+	border-radius: 15px;
+	margin: 0px 20px;
+}
+
+.access-overlay {
+	position: fixed;
+	top: 0;
+	left: 0;
+	height: 100vh;
+	width: 100vw;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
