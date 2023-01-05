@@ -8,7 +8,7 @@ import AccessPage from "./Pages/AccessPage/AccessPage";
 function App() {
 	const [isUserConnected, setIsUserConnected] = useState(true);
 	const [userName, setUserName] = useState("Test User");
-	const [selectedChat, setSelectedChat] = useState(1);
+	const [selectedChat, setSelectedChat] = useState({ name: "UserName 3" });
 	const contents = {
 		isUserConnected: isUserConnected,
 		setIsUserConnected: setIsUserConnected,

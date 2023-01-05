@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import "./ContactsNav.css";
 
-const ContactsNav = () => {
+const ContactsNav = (props) => {
 	const [chats, setChats] = useState([]);
 	const generateChats = () => {
 		let tempChats = [];
@@ -13,6 +13,12 @@ const ContactsNav = () => {
 			});
 		}
 		setChats(tempChats);
+	};
+
+	const handleSelectChat = (e) => {
+		let id = e.target.closest(".nav-chat").id;
+		console.log(id);
+		props.contents.setSelectedChat({ name: `UserName ${id}` });
 	};
 
 	useEffect(() => {
@@ -30,7 +36,15 @@ const ContactsNav = () => {
 			<div className="contacts-nav">
 				{chats.map((chat, i) => {
 					return (
-						<div className="nav-chat" key={i}>
+						<div
+							className={
+								"nav-chat " +
+								(props.contents.selectedChat.name === chat.name ? "active" : "")
+							}
+							id={i + 1}
+							key={i}
+							onClick={handleSelectChat}
+						>
 							<div className="contact-image-container">
 								<div className="contact-image"></div>
 							</div>

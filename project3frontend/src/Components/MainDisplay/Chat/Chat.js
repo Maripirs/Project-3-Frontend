@@ -1,21 +1,33 @@
 import "./Chat.css";
 
 const Chat = (props) => {
+	let contact = props.contents.selectedChat.name;
 	const testChat = {
-		users: ["Test User", "Test Contact"],
+		users: ["Test User", `${contact}`],
 		name: "Test Contact",
 		messages: [
-			{ content: "test message 1", timestamp: "9:34", user: "Test User" },
-			{ content: "test message 2", timestamp: "9:40", user: "Test Contact" },
-			{ content: "test message 3", timestamp: "9:41", user: "Test Contact" },
-			{ content: "test message 4", timestamp: "9:43", user: "Test User" },
-			{ content: "test message 5", timestamp: "9:43", user: "Test User" },
-			{ content: "test message 6", timestamp: "9:43", user: "Test User" },
-			{ content: "test message 7", timestamp: "9:54", user: "Test Contact" },
+			{ content: `test message 1`, timestamp: "9:34", user: "Test User" },
+			{
+				content: `test message 2 coming from ${contact}`,
+				timestamp: "9:40",
+				user: `${contact}`,
+			},
+			{
+				content: `test message 3 coming from ${contact}`,
+				timestamp: "9:41",
+				user: `${contact}`,
+			},
+			{ content: `test message 4`, timestamp: "9:43", user: "Test User" },
+			{ content: `test message 5`, timestamp: "9:43", user: "Test User" },
+			{ content: `test message 6`, timestamp: "9:43", user: "Test User" },
+			{
+				content: `test message 7 coming from ${contact}`,
+				timestamp: "9:54",
+				user: `${contact}`,
+			},
 		],
 		group: false,
 	};
-	console.log(props.contents);
 	return (
 		<div className="chat-container">
 			<div className="chat-header">
@@ -23,8 +35,8 @@ const Chat = (props) => {
 					<div className="contact-image"></div>
 					<h2 className="contact-name">
 						{testChat.users[0] === props.contents.userName
-							? testChat.users[0]
-							: testChat.users[1]}
+							? testChat.users[1]
+							: testChat.users[0]}
 					</h2>
 				</div>
 			</div>

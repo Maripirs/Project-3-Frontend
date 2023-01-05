@@ -1,10 +1,10 @@
 import "./Sidebar.css";
 import SidebarDefault from "./SidebarDefault/SidebarDefault";
 
-const Sidebar = () => {
+const Sidebar = (props) => {
 	return (
 		<div className="sidebar-container">
-			<SidebarDefault />
+			<SidebarDefault contents={props.contents} />
 		</div>
 	);
 };

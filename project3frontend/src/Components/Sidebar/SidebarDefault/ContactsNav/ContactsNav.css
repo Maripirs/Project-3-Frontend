@@ -90,3 +90,10 @@ p {
 	font-weight: 400;
 	font-size: 16px;
 }
+
+.active {
+	background-color: #2a3942;
+}
+.active .text-preview {
+	color: #e9edef;
+}
