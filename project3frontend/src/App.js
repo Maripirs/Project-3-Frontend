@@ -6,17 +6,26 @@ import AccessPage from "./Pages/AccessPage/AccessPage";
 // import { useContext } from "react";
 
 function App() {
-	const [isUserConnected, setIsUserConnected] = useState(false);
-	const [userName, setUserName] = useState(null);
+	const [isUserConnected, setIsUserConnected] = useState(true);
+	const [userName, setUserName] = useState("Test User");
+	const [selectedChat, setSelectedChat] = useState(1);
 	const contents = {
 		isUserConnected: isUserConnected,
 		setIsUserConnected: setIsUserConnected,
 		userName: userName,
 		setUserName: setUserName,
+		selectedChat: selectedChat,
+		setSelectedChat: setSelectedChat,
 	};
 	return (
-		<MainPage />
-		// <>{isUserConnected ? <MainPage /> : <AccessPage contents={contents} />}</>
+		// <MainPage contents={contents} />
+		<>
+			{isUserConnected ? (
+				<MainPage contents={contents} />
+			) : (
+				<AccessPage contents={contents} />
+			)}
+		</>
 	);
 }
 

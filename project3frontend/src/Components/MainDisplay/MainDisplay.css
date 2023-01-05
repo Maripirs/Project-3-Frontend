@@ -1,0 +1,19 @@
+p {
+	color: #8696a0;
+}
+h2 {
+	color: #e9edef;
+}
+
+.main-display {
+	width: 20px;
+	flex-grow: 1;
+}
+.welcome-page {
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	background-color: #202c33;
+}

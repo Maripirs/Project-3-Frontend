@@ -1,5 +1,6 @@
 .sidebar-container {
-	width: 20vw;
-	max-width: 400px;
-	background-color: red;
+	width: 30%;
+	display: flex;
+	flex-direction: column;
+	border-right: 1px solid #2a3942;
 }

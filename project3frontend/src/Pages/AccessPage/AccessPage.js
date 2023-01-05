@@ -1,5 +1,4 @@
 import "./AccessPage.css";
-import SignupForm from "../../Components/SignupForm/SignupForm";
 import LoginForm from "../../Components/LoginForm/LoginForm";
 
 const AccessPage = (props) => {

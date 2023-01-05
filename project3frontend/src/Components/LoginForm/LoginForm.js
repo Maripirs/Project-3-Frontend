@@ -1,7 +1,5 @@
 import "./LoginForm.css";
 import { useState, useEffect } from "react";
-import UserContext from "../../UserContext";
-import { useContext } from "react";
 
 const LoginForm = (props) => {
 	const initialState = {
@@ -11,10 +9,7 @@ const LoginForm = (props) => {
 	};
 
 	const [activeForm, setActiveForm] = useState("login");
-	const [displayForm, setDisplayForm] = useState(null);
 	const [formContent, setFormContent] = useState(initialState);
-
-	// const [updateUserConnected] = useContext(UserContext);
 
 	//Will check if the user credentials match something in the database
 	const loginSubmit = (e) => {
@@ -33,15 +28,10 @@ const LoginForm = (props) => {
 
 	//Will alternate between the forms being displayed, updating the necessary States
 	const changeForm = () => {
-		console.log(activeForm);
-		if (activeForm === "login") {
-			console.log("active form was login");
+		if (activeForm === "login" || !activeForm) {
 			setActiveForm("signup");
-			setDisplayForm(signupForm);
 		} else {
-			console.log("active form was sign up");
 			setActiveForm("login");
-			setDisplayForm(loginForm);
 		}
 		setFormContent(initialState);
 	};
@@ -108,10 +98,10 @@ const LoginForm = (props) => {
 		</>
 	);
 
-	useEffect(() => {
-		setDisplayForm(loginForm);
-	}, []);
-
-	return <div className="form-container">{displayForm}</div>;
+	return (
+		<div className="form-container">
+			{activeForm === "login" ? loginForm : signupForm}
+		</div>
+	);
 };
 export default LoginForm;
