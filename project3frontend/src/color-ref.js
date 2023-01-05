@@ -3,6 +3,8 @@ const colors = {
 	primaryText: "#e9edef",
 	//Grey-ish text icons
 	secondaryText: "#8696a0",
+	//Text over white
+	blackText: "#3b4a54",
 	// backgrond for headers and search bar hover
 	gray2: "#202c33",
 	// active chat

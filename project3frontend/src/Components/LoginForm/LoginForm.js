@@ -15,7 +15,7 @@ const LoginForm = (props) => {
 	const loginSubmit = (e) => {
 		e.preventDefault();
 		props.contents.setIsUserConnected(true);
-		props.contents.setUserName("Maripi");
+		props.contents.setUserName("Test User");
 	};
 	//Will create a new user and push it to the database
 	const signupSubmit = (e) => {
@@ -53,7 +53,7 @@ const LoginForm = (props) => {
 					name="password"
 					onChange={handleChange}
 				/>
-				<input type="submit" />
+				<input className="submit-button" type="submit" />
 				<p>
 					Don't have an account?{" "}
 					<span className="change-form" onClick={changeForm}>
@@ -87,7 +87,7 @@ const LoginForm = (props) => {
 					name="confirm"
 					onChange={handleChange}
 				/>
-				<input type="submit" />
+				<input className="submit-button" type="submit" />
 				<p>
 					Already have an account?{" "}
 					<span className="change-form" onClick={changeForm}>

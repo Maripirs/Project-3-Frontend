@@ -6,6 +6,7 @@
 
 .chat-header {
 	height: 60px;
+	min-height: 60px;
 	background-color: #202c33;
 	display: flex;
 	justify-content: space-between;
@@ -24,8 +25,11 @@
 .messages-display {
 	flex-grow: 1;
 	display: flex;
-	flex-direction: column;
+	flex-direction: column-reverse;
+	background-color: #0c141a;
+	overflow-y: scroll;
 }
+
 .empty-space {
 	flex-grow: 1;
 }
