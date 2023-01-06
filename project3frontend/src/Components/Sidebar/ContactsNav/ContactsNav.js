@@ -21,6 +21,7 @@ const ContactsNav = (props) => {
 				body: JSON.stringify(chatData),
 			});
 			console.log(userId);
+			console.log(newChat);
 			props.contents.refreshUser(
 				props.contents.user._id,
 				props.contents.setUser,
@@ -116,47 +117,53 @@ const ContactsNav = (props) => {
 			setFilteredUsers(searchResults);
 		}
 	};
-
-	let allChats = props.contents.user.chats.map((chat, i) => {
-		return (
-			<div
-				className={
-					"nav-chat " +
-					(props.contents.selectedChat
-						? props.contents.selectedChat._id === chat._id
-							? "active"
-							: ""
-						: "")
-				}
-				id={chat._id}
-				key={i}
-				onClick={handleSelectChat}
-			>
-				<div className="contact-image-container">
-					<div className="contact-image"></div>
-				</div>
-				<div className="message-preview">
-					<div className="name-and-time">
-						<h3 className="nav-chat-name">
-							{chat.users[0].name === props.contents.user.username
-								? chat.users[1].name
-								: chat.users[0].name}
-						</h3>
-						<p className="timestamp">{chat.updatedAt}</p>
+	const getAllChats = () => {
+		console.log(props.contents.user.chats);
+		if (props.contents.user.chats) {
+			let allChats = props.contents.user.chats.map((chat, i) => {
+				return (
+					<div
+						className={
+							"nav-chat " +
+							(props.contents.selectedChat
+								? props.contents.selectedChat._id === chat._id
+									? "active"
+									: ""
+								: "")
+						}
+						id={chat._id}
+						key={i}
+						onClick={handleSelectChat}
+					>
+						<div className="contact-image-container">
+							<div className="contact-image"></div>
+						</div>
+						<div className="message-preview">
+							<div className="name-and-time">
+								<h3 className="nav-chat-name">
+									{chat.users[0].name === props.contents.user.username
+										? chat.users[1].name
+										: chat.users[0].name}
+								</h3>
+								<p className="timestamp">{chat.updatedAt}</p>
+							</div>
+							<p className="text-preview">{chat.lastMessage}</p>
+						</div>
 					</div>
-					<p className="text-preview">{chat.lastMessage}</p>
-				</div>
-			</div>
-		);
-	});
-
+				);
+			});
+			return allChats;
+		}
+	};
 	useEffect(() => {
+		let allChats = getAllChats();
 		setChatsDisplay(allChats);
 	}, []);
 
 	useEffect(() => {
 		console.log("looking for chats");
 		console.log("selected chat is : ", props.contents.selectedChat);
+		let allChats = getAllChats();
 		setChatsDisplay(allChats);
 	}, [props.contents.user, props.contents.selectedChat]);
 

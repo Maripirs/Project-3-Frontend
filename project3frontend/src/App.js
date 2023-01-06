@@ -24,7 +24,7 @@ function App() {
 		}
 	};
 	const contents = {
-		URL: "http://localhost:4000/",
+		URL: "https://obscure-dawn-52977.herokuapp.com/",
 		selectedChat: selectedChat,
 		setSelectedChat: setSelectedChat,
 		user: user,

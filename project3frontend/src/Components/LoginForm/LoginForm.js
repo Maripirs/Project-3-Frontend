@@ -11,8 +11,16 @@ const LoginForm = (props) => {
 	const [activeForm, setActiveForm] = useState("login");
 	const [formContent, setFormContent] = useState(initialState);
 	const [allUsers, setAllUsers] = useState([]);
+	const [refresh, setRefresh] = useState("0");
 
 	const URL = props.contents.URL;
+	const handleRefresh = () => {
+		if (refresh === "0") {
+			setRefresh("1");
+		} else {
+			setRefresh("0");
+		}
+	};
 
 	const getUser = async (userID) => {
 		try {
@@ -38,6 +46,10 @@ const LoginForm = (props) => {
 			}
 		};
 		getUsers();
+	}, [refresh]);
+
+	useEffect(() => {
+		handleRefresh();
 	}, []);
 
 	//looping through the list of users to see iif the input matches an existing user
@@ -53,6 +65,17 @@ const LoginForm = (props) => {
 		}
 	};
 
+	const createUser = async (userData) => {
+		try {
+			const newUser = await fetch(`${URL}user`, {
+				method: "post",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify(userData),
+			});
+		} catch (error) {}
+	};
 	//Will check if the user credentials match something in the database
 	const loginSubmit = (e) => {
 		e.preventDefault();
@@ -64,6 +87,22 @@ const LoginForm = (props) => {
 	//Will create a new user and push it to the database
 	const signupSubmit = (e) => {
 		e.preventDefault();
+		let foundUser = false;
+		console.log(props.contents.userList);
+		for (let i = 0; i < props.contents.userList.length; i++) {
+			if (props.contents.usersList[i].username === formContent.username) {
+				console.log("username not available");
+				foundUser = true;
+			}
+		}
+		if (!foundUser) {
+			createUser({
+				username: formContent.username,
+				password: formContent.password,
+			});
+		}
+		changeForm();
+		handleRefresh();
 	};
 
 	const handleChange = (e) => {
