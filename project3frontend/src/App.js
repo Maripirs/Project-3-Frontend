@@ -6,6 +6,7 @@ import AccessPage from "./Pages/AccessPage/AccessPage";
 // import { useContext } from "react";
 
 function App() {
+	const [userList, setUserList] = useState(null);
 	const [isUserConnected, setIsUserConnected] = useState(false);
 	const [userName, setUserName] = useState(null);
 	const [user, setUser] = useState(null);
@@ -23,6 +24,8 @@ function App() {
 		setUser: setUser,
 		chatState: chatState,
 		setChatState: setChatState,
+		userList: userList,
+		setUserList: setUserList,
 	};
 	return (
 		// <MainPage contents={contents} />

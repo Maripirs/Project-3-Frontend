@@ -20,6 +20,7 @@ const LoginForm = (props) => {
 				const response = await fetch(`${URL}user`);
 				let users = await response.json();
 				setAllUsers(users);
+				props.contents.setUserList(users);
 				console.log(allUsers);
 			} catch (error) {
 				console.log(error);
