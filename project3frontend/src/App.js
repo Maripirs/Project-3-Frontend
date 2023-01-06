@@ -7,8 +7,6 @@ import AccessPage from "./Pages/AccessPage/AccessPage";
 
 function App() {
 	const [userList, setUserList] = useState(null);
-	const [isUserConnected, setIsUserConnected] = useState(false);
-	const [userName, setUserName] = useState(null);
 	const [user, setUser] = useState(null);
 	const [selectedChat, setSelectedChat] = useState(null);
 	const [chatState, setChatState] = useState(null);
@@ -27,10 +25,6 @@ function App() {
 	};
 	const contents = {
 		URL: "http://localhost:4000/",
-		isUserConnected: isUserConnected,
-		setIsUserConnected: setIsUserConnected,
-		userName: userName,
-		setUserName: setUserName,
 		selectedChat: selectedChat,
 		setSelectedChat: setSelectedChat,
 		user: user,
@@ -44,7 +38,7 @@ function App() {
 	return (
 		// <MainPage contents={contents} />
 		<>
-			{isUserConnected ? (
+			{user ? (
 				<MainPage contents={contents} />
 			) : (
 				<AccessPage contents={contents} />

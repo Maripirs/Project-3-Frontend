@@ -15,7 +15,7 @@ const SidebarHeader = (props) => {
 					className="user-picture"
 					style={{ backgroundImage: `url(${props.contents.user.image})` }}
 				></div>
-				<h3 className="user-name">{props.contents.userName}</h3>
+				<h3 className="user-name">{props.contents.user.username}</h3>
 			</div>
 			<div className="refresh" onClick={refreshFunction}>
 				{" "}

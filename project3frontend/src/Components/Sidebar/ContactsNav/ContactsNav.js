@@ -9,7 +9,8 @@ const ContactsNav = (props) => {
 	let userList = props.contents.userList;
 	const [searchInput, setSearchInput] = useState("");
 	const [filteredUsers, setFilteredUsers] = useState(null);
-	const [chats, setChats] = useState(null);
+	const [chatsDisplay, setChatsDisplay] = useState(null);
+	const [chatsData, setChatsData] = useState(null);
 
 	const createChat = async (chatData) => {
 		try {
@@ -31,6 +32,7 @@ const ContactsNav = (props) => {
 
 	const handleSelectChat = (e) => {
 		let id = e.target.closest(".nav-chat").id;
+		console.log(id);
 		props.contents.setSelectedChat({ id });
 	};
 
@@ -108,52 +110,52 @@ const ContactsNav = (props) => {
 			setFilteredUsers(searchResults);
 		}
 	};
-	const getChats = () => {
-		let allChats = props.contents.user.chats.map((chat, i) => {
-			return (
-				<div
-					className={
-						"nav-chat " +
-						(props.contents.selectedChat
-							? props.contents.selectedChat.name === chat.name
-								? "active"
-								: ""
-							: "")
-					}
-					id={chat._id}
-					key={i}
-					onClick={handleSelectChat}
-				>
-					<div className="contact-image-container">
-						<div className="contact-image"></div>
-					</div>
-					<div className="message-preview">
-						<div className="name-and-time">
-							<h3 className="nav-chat-name">
-								{chat.users[0].name === userName
-									? chat.users[1].name
-									: chat.users[0].name}
-							</h3>
-							<p className="timestamp">{chat.updatedAt}</p>
+
+	const getDisplayChats = () => {
+		if (chatsData) {
+			let allChats = chatsData.map((chat, i) => {
+				return (
+					<div
+						className={
+							"nav-chat " +
+							(props.contents.selectedChat
+								? props.contents.selectedChat.name === chat.name
+									? "active"
+									: ""
+								: "")
+						}
+						id={chat._id}
+						key={i}
+						onClick={handleSelectChat}
+					>
+						<div className="contact-image-container">
+							<div className="contact-image"></div>
 						</div>
-						<p className="text-preview">{chat.lastMessage}</p>
+						<div className="message-preview">
+							<div className="name-and-time">
+								<h3 className="nav-chat-name">
+									{chat.users[0].name === userName
+										? chat.users[1].name
+										: chat.users[0].name}
+								</h3>
+								<p className="timestamp">{chat.updatedAt}</p>
+							</div>
+							<p className="text-preview">{chat.lastMessage}</p>
+						</div>
 					</div>
-				</div>
-			);
-		});
-		return allChats;
+				);
+			});
+		}
 	};
 
-	useEffect(() => {
-		let allChats = getChats();
-		setChats(allChats);
-	}, []);
+	// useEffect(() => {
+	// 	setChatsDisplay(allChats);
+	// }, []);
 
-	useEffect(() => {
-		console.log("looking for chats");
-		let allChats = getChats();
-		setChats(allChats);
-	}, [props.contents.user]);
+	// useEffect(() => {
+	// 	console.log("looking for chats");
+	// 	setChatsDisplay(allChats);
+	// }, [props.contents.user]);
 
 	return (
 		<div className="contacts-nav-container">
@@ -168,7 +170,7 @@ const ContactsNav = (props) => {
 				/>
 			</div>
 			<div className="contacts-nav">
-				{searchInput.length > 0 ? <div>{filteredUsers}</div> : chats}
+				{searchInput.length > 0 ? <div>{filteredUsers}</div> : chatsDisplay}
 			</div>
 		</div>
 	);

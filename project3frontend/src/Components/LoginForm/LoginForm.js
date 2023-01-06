@@ -14,6 +14,17 @@ const LoginForm = (props) => {
 
 	const URL = props.contents.URL;
 
+	const getUser = async (userID) => {
+		try {
+			const response = await fetch(`${URL}user/${userID}`);
+			let user = await response.json();
+			props.contents.setUser(user);
+			console.log(user);
+		} catch (error) {
+			console.log(error);
+		}
+	};
+
 	useEffect(() => {
 		const getUsers = async () => {
 			try {
@@ -35,8 +46,7 @@ const LoginForm = (props) => {
 		if (users.length > 0) {
 			for (let i = 0; i < users.length; i++) {
 				if (users[i].username === username) {
-					props.contents.setUserName(users[i].username);
-					props.contents.setUser(users[i]);
+					getUser(users[i]._id);
 					return true;
 				}
 			}
@@ -47,7 +57,6 @@ const LoginForm = (props) => {
 	const loginSubmit = (e) => {
 		e.preventDefault();
 		if (userExists(allUsers, formContent.username)) {
-			props.contents.setIsUserConnected(true);
 		} else {
 			console.log("invalid credentials");
 		}
