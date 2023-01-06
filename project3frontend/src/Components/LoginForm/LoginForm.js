@@ -12,12 +12,12 @@ const LoginForm = (props) => {
 	const [formContent, setFormContent] = useState(initialState);
 	const [allUsers, setAllUsers] = useState([]);
 
-	const URL = "http://localhost:4000/";
+	const URL = props.contents.URL;
 
 	useEffect(() => {
 		const getUsers = async () => {
 			try {
-				const response = await fetch(`${URL}users`);
+				const response = await fetch(`${URL}user`);
 				let users = await response.json();
 				setAllUsers(users);
 				console.log(allUsers);

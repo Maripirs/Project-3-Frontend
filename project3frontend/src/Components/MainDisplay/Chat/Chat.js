@@ -2,48 +2,61 @@ import { useState, useEffect } from "react";
 import "./Chat.css";
 
 const Chat = (props) => {
-	let user = props.contents.userName;
-	let contact = props.contents.selectedChat.name;
-	let [chatState, setChatState] = useState(null);
-	let [typed, setTyped] = useState("");
-	const testChat = {
-		users: ["Test User", `${contact}`],
-		name: "Test Contact",
-		messages: [
-			{ content: `test message 1`, timestamp: "9:34", user: "Test User" },
-			{
-				content: `test message 2 coming from ${contact}`,
-				timestamp: "9:40",
-				user: `${contact}`,
-			},
-			{
-				content: `test message 3 coming from ${contact}`,
-				timestamp: "9:41",
-				user: `${contact}`,
-			},
-			{ content: `test message 4`, timestamp: "9:43", user: "Test User" },
-			{ content: `test message 5`, timestamp: "9:43", user: "Test User" },
-			{ content: `test message 6`, timestamp: "9:43", user: "Test User" },
-			{
-				content: `test message 7 coming from ${contact}`,
-				timestamp: "9:54",
-				user: `${contact}`,
-			},
-		],
-		group: false,
-	};
+	let URL = props.contents.URL;
+	let chatState = props.contents.chatState;
+	let setChatState = props.contents.setChatState;
+	const [typed, setTyped] = useState("");
 
 	useEffect(() => {
-		setChatState(testChat);
+		const refreshUser = async () => {
+			console.log("trying to refresh");
+			try {
+				let userId = props.contents.user._id;
+				const response = await fetch(`${URL}user/${userId}`);
+				let user = await response.json();
+				props.contents.setUsers(user);
+			} catch (error) {}
+		};
+		const getChat = async () => {
+			try {
+				const response = await fetch(
+					`${URL}chat/${props.contents.selectedChat.id}`
+				);
+				let chat = await response.json();
+				setChatState(chat);
+				refreshUser();
+				console.log("fetched chat", chat);
+			} catch (error) {
+				console.log(error);
+			}
+		};
+		getChat();
 	}, []);
+
+	const createMessage = async (messageData) => {
+		try {
+			const newMessage = await fetch(
+				`${URL}chat/${props.contents.selectedChat.id}`,
+				{
+					method: "put",
+					headers: {
+						"Content-Type": "application/json",
+					},
+					body: JSON.stringify(messageData),
+				}
+			);
+		} catch (error) {
+			console.log(error);
+		}
+	};
 
 	const sendMessage = (e) => {
 		e.preventDefault();
 		let newMessage = {
 			content: typed,
-			timestamp: "timestamp",
-			user: "Test User",
+			user: `${props.contents.user._id}`,
 		};
+		createMessage(newMessage);
 		let newMessages = [...chatState.messages, newMessage];
 		let newChatState = { ...chatState, messages: newMessages };
 		setChatState(newChatState);
@@ -61,9 +74,9 @@ const Chat = (props) => {
 						<div className="contact-info">
 							<div className="contact-image"></div>
 							<h2 className="contact-name">
-								{chatState.users[0] === props.contents.userName
-									? chatState.users[1]
-									: chatState.users[0]}
+								{chatState.users[0].name === props.contents.userName
+									? chatState.users[1].name
+									: chatState.users[0].name}
 							</h2>
 						</div>
 					</div>
@@ -75,7 +88,7 @@ const Chat = (props) => {
 									<div
 										className={
 											"message-display-bar " +
-											(message.user === props.contents.userName
+											(message.user === props.contents.user._id
 												? "outgoing"
 												: "incoming")
 										}

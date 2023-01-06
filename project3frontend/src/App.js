@@ -10,7 +10,9 @@ function App() {
 	const [userName, setUserName] = useState(null);
 	const [user, setUser] = useState(null);
 	const [selectedChat, setSelectedChat] = useState(null);
+	const [chatState, setChatState] = useState(null);
 	const contents = {
+		URL: "http://localhost:4000/",
 		isUserConnected: isUserConnected,
 		setIsUserConnected: setIsUserConnected,
 		userName: userName,
@@ -19,6 +21,8 @@ function App() {
 		setSelectedChat: setSelectedChat,
 		user: user,
 		setUser: setUser,
+		chatState: chatState,
+		setChatState: setChatState,
 	};
 	return (
 		// <MainPage contents={contents} />

@@ -18,8 +18,7 @@ const ContactsNav = (props) => {
 
 	const handleSelectChat = (e) => {
 		let id = e.target.closest(".nav-chat").id;
-		console.log(id);
-		props.contents.setSelectedChat({ name: `UserName ${id}` });
+		props.contents.setSelectedChat({ id });
 	};
 
 	let allChats = props.contents.user.chats.map((chat, i) => {
@@ -33,7 +32,7 @@ const ContactsNav = (props) => {
 							: ""
 						: "")
 				}
-				id={i + 1}
+				id={chat._id}
 				key={i}
 				onClick={handleSelectChat}
 			>
@@ -43,9 +42,7 @@ const ContactsNav = (props) => {
 				<div className="message-preview">
 					<div className="name-and-time">
 						<h3 className="nav-chat-name">
-							{chat.users[0].username === userName
-								? userName
-								: chat.users[1].username}
+							{chat.users[0].name === userName ? userName : chat.users[1].name}
 						</h3>
 						<p className="timestamp">{chat.updatedAt}</p>
 					</div>
@@ -55,6 +52,10 @@ const ContactsNav = (props) => {
 		);
 	});
 
+	useEffect(() => {
+		setChats(allChats);
+	}, []);
+
 	return (
 		<div className="contacts-nav-container">
 			<div className="search-bar">
@@ -63,7 +64,7 @@ const ContactsNav = (props) => {
 				</div>
 				<input type="text" placeholder="Search or start a new chat" />
 			</div>
-			<div className="contacts-nav">{allChats}</div>
+			<div className="contacts-nav">{chats}</div>
 		</div>
 	);
 };
