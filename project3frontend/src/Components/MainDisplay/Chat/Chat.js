@@ -5,23 +5,34 @@ const Chat = (props) => {
 	let URL = props.contents.URL;
 	let chatState = props.contents.chatState;
 	let setChatState = props.contents.setChatState;
+	const [refresh, setRefresh] = useState("0");
 	const [typed, setTyped] = useState("");
 
 	useEffect(() => {
-		const getChat = async () => {
-			try {
-				const response = await fetch(
-					`${URL}chat/${props.contents.selectedChat._id}`
-				);
-				let chat = await response.json();
-				setChatState(chat);
-				console.log("fetched chat", chat);
-			} catch (error) {
-				console.log(error);
-			}
-		};
-		getChat();
-	}, []);
+		if (props.contents.selectedChat._id) {
+			const getChat = async () => {
+				try {
+					const response = await fetch(
+						`${URL}chat/${props.contents.selectedChat._id}`
+					);
+					let chat = await response.json();
+					setChatState(chat);
+					console.log("fetched chat", chat);
+				} catch (error) {
+					console.log(error);
+				}
+			};
+			getChat();
+		}
+	}, [props.contents.selectedChat, refresh]);
+
+	const handleRefresh = () => {
+		if (refresh === "0") {
+			setRefresh("1");
+		} else {
+			setRefresh("0");
+		}
+	};
 
 	const createMessage = async (messageData) => {
 		try {
@@ -69,6 +80,9 @@ const Chat = (props) => {
 									? chatState.users[1].name
 									: chatState.users[0].name}
 							</h2>
+						</div>
+						<div className="refresh" onClick={handleRefresh}>
+							&#8635;
 						</div>
 					</div>
 					<div className="messages-display">

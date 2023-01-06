@@ -31,13 +31,12 @@ const ContactsNav = (props) => {
 
 	//Will set the chat to active and pull it up on the main display
 	const handleSelectChat = (e) => {
-		//get selected ID
 		let id = e.target.closest(".nav-chat").id;
-		//find a chat that matches selected ID and assigning it to the selectedChat state
 		for (let i = 0; i < chatsList.length; i++) {
-			console.log("checking chat ", i, ": ", chatsList[i], id);
-			props.contents.setSelectedChat(chatsList[i]);
-			break;
+			if (chatsList[i]._id === id) {
+				props.contents.setSelectedChat(chatsList[i]);
+				break;
+			}
 		}
 	};
 
