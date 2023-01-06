@@ -10,12 +10,45 @@ const LoginForm = (props) => {
 
 	const [activeForm, setActiveForm] = useState("login");
 	const [formContent, setFormContent] = useState(initialState);
+	const [allUsers, setAllUsers] = useState([]);
+
+	const URL = "http://localhost:4000/";
+
+	useEffect(() => {
+		const getUsers = async () => {
+			try {
+				const response = await fetch(`${URL}users`);
+				let users = await response.json();
+				setAllUsers(users);
+				console.log(allUsers);
+			} catch (error) {
+				console.log(error);
+			}
+		};
+		getUsers();
+	}, []);
+
+	const userExists = (users, username) => {
+		console.log(username, users);
+		if (users.length > 0) {
+			for (let i = 0; i < users.length; i++) {
+				if (users[i].username === username) {
+					props.contents.setUserName(users[i].username);
+					props.contents.setUser(users[i]);
+					return true;
+				}
+			}
+		}
+	};
 
 	//Will check if the user credentials match something in the database
 	const loginSubmit = (e) => {
 		e.preventDefault();
-		props.contents.setIsUserConnected(true);
-		props.contents.setUserName("Test User");
+		if (userExists(allUsers, formContent.username)) {
+			props.contents.setIsUserConnected(true);
+		} else {
+			console.log("invalid credentials");
+		}
 	};
 	//Will create a new user and push it to the database
 	const signupSubmit = (e) => {

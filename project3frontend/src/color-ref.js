@@ -5,6 +5,7 @@ const colors = {
 	secondaryText: "#8696a0",
 	//Text over white
 	blackText: "#3b4a54",
+	greenText: "#008069",
 	// backgrond for headers and search bar hover
 	gray2: "#202c33",
 	// active chat

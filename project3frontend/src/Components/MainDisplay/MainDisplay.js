@@ -15,8 +15,11 @@ const MainDisplay = (props) => {
 	);
 	return (
 		<div className="main-display">
-			<Chat contents={props.contents} />
-			{/* {selectedChat ? <Chat contents={props.contents} /> : welcomePage} */}
+			{props.contents.selectedChat ? (
+				<Chat contents={props.contents} />
+			) : (
+				welcomePage
+			)}
 		</div>
 	);
 };
