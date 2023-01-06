@@ -37,7 +37,7 @@ const Chat = (props) => {
 	const createMessage = async (messageData) => {
 		try {
 			const newMessage = await fetch(
-				`${URL}chat/${props.contents.selectedChat.id}`,
+				`${URL}chat/${props.contents.selectedChat._id}`,
 				{
 					method: "put",
 					headers: {
@@ -46,6 +46,7 @@ const Chat = (props) => {
 					body: JSON.stringify(messageData),
 				}
 			);
+			console.log(newMessage);
 		} catch (error) {
 			console.log(error);
 		}
