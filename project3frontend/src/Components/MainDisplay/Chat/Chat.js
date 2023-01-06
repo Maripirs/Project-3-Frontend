@@ -11,7 +11,7 @@ const Chat = (props) => {
 		const getChat = async () => {
 			try {
 				const response = await fetch(
-					`${URL}chat/${props.contents.selectedChat.id}`
+					`${URL}chat/${props.contents.selectedChat._id}`
 				);
 				let chat = await response.json();
 				setChatState(chat);

@@ -31,9 +31,14 @@ const ContactsNav = (props) => {
 
 	//Will set the chat to active and pull it up on the main display
 	const handleSelectChat = (e) => {
+		//get selected ID
 		let id = e.target.closest(".nav-chat").id;
-		console.log(id);
-		props.contents.setSelectedChat({ id });
+		//find a chat that matches selected ID and assigning it to the selectedChat state
+		for (let i = 0; i < chatsList.length; i++) {
+			console.log("checking chat ", i, ": ", chatsList[i], id);
+			props.contents.setSelectedChat(chatsList[i]);
+			break;
+		}
 	};
 
 	//For when we are searching
@@ -47,10 +52,10 @@ const ContactsNav = (props) => {
 				chatsList[i].users[0].id === userId ||
 				chatsList[i].users[1].id === userId
 			) {
-				props.contents.setSelectedChat(chatsList[i]._id);
-				setSearchInput("");
-				break;
+				props.contents.setSelectedChat(chatsList[i]);
 			}
+			setSearchInput("");
+			break;
 		}
 		if (!foundChat) {
 			let contactName = "";
@@ -72,7 +77,7 @@ const ContactsNav = (props) => {
 				users: usersArray,
 			};
 			let createdChat = createChat(newChatData);
-			props.contents.setSelectedChat(createdChat._id);
+			props.contents.setSelectedChat(createdChat);
 			setSearchInput("");
 		}
 	};
@@ -119,7 +124,7 @@ const ContactsNav = (props) => {
 				className={
 					"nav-chat " +
 					(props.contents.selectedChat
-						? props.contents.selectedChat.name === chat.name
+						? props.contents.selectedChat._id === chat._id
 							? "active"
 							: ""
 						: "")
@@ -152,8 +157,9 @@ const ContactsNav = (props) => {
 
 	useEffect(() => {
 		console.log("looking for chats");
+		console.log("selected chat is : ", props.contents.selectedChat);
 		setChatsDisplay(allChats);
-	}, [props.contents.user]);
+	}, [props.contents.user, props.contents.selectedChat]);
 
 	return (
 		<div className="contacts-nav-container">
