@@ -8,15 +8,6 @@ const Chat = (props) => {
 	const [typed, setTyped] = useState("");
 
 	useEffect(() => {
-		const refreshUser = async () => {
-			console.log("trying to refresh");
-			try {
-				let userId = props.contents.user._id;
-				const response = await fetch(`${URL}user/${userId}`);
-				let user = await response.json();
-				props.contents.setUsers(user);
-			} catch (error) {}
-		};
 		const getChat = async () => {
 			try {
 				const response = await fetch(
@@ -24,7 +15,6 @@ const Chat = (props) => {
 				);
 				let chat = await response.json();
 				setChatState(chat);
-				refreshUser();
 				console.log("fetched chat", chat);
 			} catch (error) {
 				console.log(error);
@@ -57,6 +47,7 @@ const Chat = (props) => {
 			user: `${props.contents.user._id}`,
 		};
 		createMessage(newMessage);
+		//this should probably be a new fetch - refresh chat
 		let newMessages = [...chatState.messages, newMessage];
 		let newChatState = { ...chatState, messages: newMessages };
 		setChatState(newChatState);

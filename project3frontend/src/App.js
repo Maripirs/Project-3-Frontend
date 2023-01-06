@@ -12,6 +12,19 @@ function App() {
 	const [user, setUser] = useState(null);
 	const [selectedChat, setSelectedChat] = useState(null);
 	const [chatState, setChatState] = useState(null);
+	//Fetching the active user to see if chats have changed (preview chat, not the detailed one)
+	const refreshUser = async (userID, setUserFunction, URL) => {
+		console.log("refreshing user");
+		try {
+			console.log(`${URL}user/${userID}`);
+			const response = await fetch(`${URL}user/${userID}`);
+			let user = await response.json();
+			console.log(user);
+			setUserFunction(user);
+		} catch (error) {
+			console.log(error);
+		}
+	};
 	const contents = {
 		URL: "http://localhost:4000/",
 		isUserConnected: isUserConnected,
@@ -26,6 +39,7 @@ function App() {
 		setChatState: setChatState,
 		userList: userList,
 		setUserList: setUserList,
+		refreshUser: refreshUser,
 	};
 	return (
 		// <MainPage contents={contents} />

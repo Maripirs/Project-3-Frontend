@@ -29,6 +29,7 @@ const LoginForm = (props) => {
 		getUsers();
 	}, []);
 
+	//looping through the list of users to see iif the input matches an existing user
 	const userExists = (users, username) => {
 		console.log(username, users);
 		if (users.length > 0) {

@@ -4,3 +4,6 @@
 	flex-direction: column;
 	border-right: 1px solid #2a3942;
 }
+.sidebar-default-container {
+	flex-grow: 1;
+}
