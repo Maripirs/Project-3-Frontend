@@ -3,15 +3,14 @@ import "./ContactsNav.css";
 
 const ContactsNav = (props) => {
 	let URL = props.contents.URL;
-	let userName = props.contents.userName;
 	let chatsList = props.contents.user.chats;
 	let userId = props.contents.user._id;
 	let userList = props.contents.userList;
 	const [searchInput, setSearchInput] = useState("");
 	const [filteredUsers, setFilteredUsers] = useState(null);
 	const [chatsDisplay, setChatsDisplay] = useState(null);
-	const [chatsData, setChatsData] = useState(null);
 
+	//Creates a new chat and adds it to the respective users
 	const createChat = async (chatData) => {
 		try {
 			const newChat = await fetch(`${URL}chat`, {
@@ -30,6 +29,7 @@ const ContactsNav = (props) => {
 		} catch (error) {}
 	};
 
+	//Will set the chat to active and pull it up on the main display
 	const handleSelectChat = (e) => {
 		let id = e.target.closest(".nav-chat").id;
 		console.log(id);
@@ -65,7 +65,7 @@ const ContactsNav = (props) => {
 					userid: contactId,
 					name: contactName,
 				},
-				{ userid: userId, name: userName },
+				{ userid: userId, name: props.contents.user.username },
 			];
 			console.log(usersArray);
 			let newChatData = {
@@ -76,7 +76,9 @@ const ContactsNav = (props) => {
 			setSearchInput("");
 		}
 	};
+
 	//freeCodeCamp
+	//Using the search bar input states, it filters the list of users to display
 	const searchUsers = (e) => {
 		console.log(props.contents.userList);
 		setSearchInput(e.target.value);
@@ -111,51 +113,47 @@ const ContactsNav = (props) => {
 		}
 	};
 
-	const getDisplayChats = () => {
-		if (chatsData) {
-			let allChats = chatsData.map((chat, i) => {
-				return (
-					<div
-						className={
-							"nav-chat " +
-							(props.contents.selectedChat
-								? props.contents.selectedChat.name === chat.name
-									? "active"
-									: ""
-								: "")
-						}
-						id={chat._id}
-						key={i}
-						onClick={handleSelectChat}
-					>
-						<div className="contact-image-container">
-							<div className="contact-image"></div>
-						</div>
-						<div className="message-preview">
-							<div className="name-and-time">
-								<h3 className="nav-chat-name">
-									{chat.users[0].name === userName
-										? chat.users[1].name
-										: chat.users[0].name}
-								</h3>
-								<p className="timestamp">{chat.updatedAt}</p>
-							</div>
-							<p className="text-preview">{chat.lastMessage}</p>
-						</div>
+	let allChats = props.contents.user.chats.map((chat, i) => {
+		return (
+			<div
+				className={
+					"nav-chat " +
+					(props.contents.selectedChat
+						? props.contents.selectedChat.name === chat.name
+							? "active"
+							: ""
+						: "")
+				}
+				id={chat._id}
+				key={i}
+				onClick={handleSelectChat}
+			>
+				<div className="contact-image-container">
+					<div className="contact-image"></div>
+				</div>
+				<div className="message-preview">
+					<div className="name-and-time">
+						<h3 className="nav-chat-name">
+							{chat.users[0].name === props.contents.user.username
+								? chat.users[1].name
+								: chat.users[0].name}
+						</h3>
+						<p className="timestamp">{chat.updatedAt}</p>
 					</div>
-				);
-			});
-		}
-	};
+					<p className="text-preview">{chat.lastMessage}</p>
+				</div>
+			</div>
+		);
+	});
 
-	// useEffect(() => {
-	// 	setChatsDisplay(allChats);
-	// }, []);
+	useEffect(() => {
+		setChatsDisplay(allChats);
+	}, []);
 
-	// useEffect(() => {
-	// 	console.log("looking for chats");
-	// 	setChatsDisplay(allChats);
-	// }, [props.contents.user]);
+	useEffect(() => {
+		console.log("looking for chats");
+		setChatsDisplay(allChats);
+	}, [props.contents.user]);
 
 	return (
 		<div className="contacts-nav-container">
