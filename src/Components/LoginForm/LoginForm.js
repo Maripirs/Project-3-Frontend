@@ -88,11 +88,11 @@ const LoginForm = (props) => {
 	const signupSubmit = (e) => {
 		e.preventDefault();
 		let foundUser = false;
-		console.log(props.contents.userList);
 		for (let i = 0; i < props.contents.userList.length; i++) {
-			if (props.contents.usersList[i].username === formContent.username) {
+			if (props.contents.userList[i].username === formContent.username) {
 				console.log("username not available");
 				foundUser = true;
+				break;
 			}
 		}
 		if (!foundUser) {
@@ -103,6 +103,7 @@ const LoginForm = (props) => {
 		}
 		changeForm();
 		handleRefresh();
+		e.target.reset();
 	};
 
 	const handleChange = (e) => {
