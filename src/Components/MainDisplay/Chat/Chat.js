@@ -52,6 +52,29 @@ const Chat = (props) => {
 		}
 	};
 
+	const deleteChat = async () => {
+		try {
+			const deletedChat = await fetch(
+				`${URL}chat/${props.contents.selectedChat._id}`,
+				{
+					method: "delete",
+					headers: {
+						"Content-Type": "application/json",
+					},
+				}
+			).then(() => {
+				props.contents.refreshUser(
+					props.contents.user._id,
+					props.contents.setUser,
+					props.contents.URL
+				);
+				props.contents.setSelectedChat(null);
+			});
+		} catch (error) {
+			console.log(error);
+		}
+	};
+
 	const sendMessage = (e) => {
 		e.preventDefault();
 		let newMessage = {
@@ -84,6 +107,9 @@ const Chat = (props) => {
 						</div>
 						<div className="refresh" onClick={handleRefresh}>
 							&#8635;
+						</div>
+						<div className="delete" onClick={deleteChat}>
+							x
 						</div>
 					</div>
 					<div className="messages-display">

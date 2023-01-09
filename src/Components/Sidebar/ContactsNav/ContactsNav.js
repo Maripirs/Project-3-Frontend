@@ -161,7 +161,7 @@ const ContactsNav = (props) => {
 	}, []);
 
 	useEffect(() => {
-		console.log("looking for chats");
+		console.log("looking for chats for chatsnav");
 		console.log("selected chat is : ", props.contents.selectedChat);
 		let allChats = getAllChats();
 		setChatsDisplay(allChats);
