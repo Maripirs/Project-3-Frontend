@@ -12,9 +12,13 @@ const LoginForm = (props) => {
 	const [formContent, setFormContent] = useState(initialState);
 	const [allUsers, setAllUsers] = useState([]);
 	const [refresh, setRefresh] = useState("0");
+	const [warning, setWarning] = useState(null);
 
 	const URL = props.contents.URL;
+
+	// This function is solely changing the value to force a rerender
 	const handleRefresh = () => {
+		console.log("Refreshing");
 		if (refresh === "0") {
 			setRefresh("1");
 		} else {
@@ -22,6 +26,7 @@ const LoginForm = (props) => {
 		}
 	};
 
+	//Fetch for the selected user, Onlyu ocurs after a succesful login
 	const getUser = async (userID) => {
 		try {
 			const response = await fetch(`${URL}user/${userID}`);
@@ -33,14 +38,16 @@ const LoginForm = (props) => {
 		}
 	};
 
+	//Fetching a list of all users in database upon everytime the refresh state gets updated
 	useEffect(() => {
 		const getUsers = async () => {
 			try {
 				const response = await fetch(`${URL}user`);
 				let users = await response.json();
+
 				setAllUsers(users);
 				props.contents.setUserList(users);
-				console.log(allUsers);
+				console.log(users);
 			} catch (error) {
 				console.log(error);
 			}
@@ -48,6 +55,7 @@ const LoginForm = (props) => {
 		getUsers();
 	}, [refresh]);
 
+	//Making a refresh upon loading so GetUsers Runs for the first time
 	useEffect(() => {
 		handleRefresh();
 	}, []);
@@ -65,6 +73,7 @@ const LoginForm = (props) => {
 		}
 	};
 
+	//Post route to create a new user with the data provided by the form
 	const createUser = async (userData) => {
 		try {
 			const newUser = await fetch(`${URL}user`, {
@@ -73,37 +82,44 @@ const LoginForm = (props) => {
 					"Content-Type": "application/json",
 				},
 				body: JSON.stringify(userData),
+			}).then(() => {
+				handleRefresh();
 			});
 		} catch (error) {}
 	};
+
 	//Will check if the user credentials match something in the database
 	const loginSubmit = (e) => {
 		e.preventDefault();
 		if (userExists(allUsers, formContent.username)) {
 		} else {
-			console.log("invalid credentials");
+			setWarning("invalid credentials");
 		}
 	};
+
 	//Will create a new user and push it to the database
 	const signupSubmit = (e) => {
 		e.preventDefault();
 		let foundUser = false;
 		for (let i = 0; i < props.contents.userList.length; i++) {
 			if (props.contents.userList[i].username === formContent.username) {
-				console.log("username not available");
+				setWarning("username not available");
 				foundUser = true;
 				break;
 			}
 		}
 		if (!foundUser) {
-			createUser({
-				username: formContent.username,
-				password: formContent.password,
-			});
+			if (formContent.password) {
+				createUser({
+					username: formContent.username,
+					password: formContent.password,
+				});
+				changeForm();
+				e.target.reset();
+			} else {
+				setWarning("invalid password");
+			}
 		}
-		changeForm();
-		handleRefresh();
-		e.target.reset();
 	};
 
 	const handleChange = (e) => {
@@ -118,6 +134,7 @@ const LoginForm = (props) => {
 			setActiveForm("login");
 		}
 		setFormContent(initialState);
+		setWarning(null);
 	};
 
 	// HTML elements for login form
@@ -137,6 +154,7 @@ const LoginForm = (props) => {
 					name="password"
 					onChange={handleChange}
 				/>
+				<p className="warning">{warning ? warning : ""}</p>
 				<input className="submit-button" type="submit" />
 				<p>
 					Don't have an account?{" "}
@@ -171,6 +189,7 @@ const LoginForm = (props) => {
 					name="confirm"
 					onChange={handleChange}
 				/>
+				<p className="warning">{warning ? warning : ""}</p>
 				<input className="submit-button" type="submit" />
 				<p>
 					Already have an account?{" "}

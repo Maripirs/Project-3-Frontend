@@ -62,14 +62,14 @@ const Chat = (props) => {
 						"Content-Type": "application/json",
 					},
 				}
-			).then(() => {
-				props.contents.refreshUser(
-					props.contents.user._id,
-					props.contents.setUser,
-					props.contents.URL
-				);
-				props.contents.setSelectedChat(null);
-			});
+			);
+
+			props.contents.refreshUser(
+				props.contents.user._id,
+				props.contents.setUser,
+				props.contents.URL
+			);
+			props.contents.setSelectedChat(null);
 		} catch (error) {
 			console.log(error);
 		}
@@ -137,7 +137,7 @@ const Chat = (props) => {
 							})}
 						</div>
 					</div>
-					<form className="type-message-bar">
+					<form className="type-message-bar" onSubmit={sendMessage}>
 						<input
 							value={typed}
 							type="text"
