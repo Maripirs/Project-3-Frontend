@@ -17,7 +17,8 @@
 	display: flex;
 	align-items: center;
 }
-.contact-name {
+.contact-name,
+.loading {
 	color: #e9edef;
 	font-weight: 400;
 	font-size: 18px;
@@ -112,4 +113,25 @@
 }
 input {
 	color: #e9edef;
+}
+
+/* Tablet? */
+@media (max-width: 850px) {
+	.back-to-nav {
+		margin-right: 20px;
+	}
+	.type-message-bar input {
+		border: none;
+		background-color: #2a3942;
+		flex-grow: 1;
+		margin: 10px;
+		padding: 10px;
+		border-radius: 10px;
+	}
+	.send-button {
+		max-width: 15vw;
+	}
+	.message-container {
+		margin: 3px 10px;
+	}
 }

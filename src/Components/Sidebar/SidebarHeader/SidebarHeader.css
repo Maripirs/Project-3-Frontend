@@ -30,3 +30,10 @@
 .settings {
 	display: flex;
 }
+@media (max-width: 850px) {
+	.page-title-text {
+		color: #e9edef;
+		font-size: 24px;
+		margin-left: 30px;
+	}
+}

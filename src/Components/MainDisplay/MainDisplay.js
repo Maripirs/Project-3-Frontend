@@ -14,7 +14,14 @@ const MainDisplay = (props) => {
 		</div>
 	);
 	return (
-		<div className="main-display">
+		<div
+			className={
+				"main-display " +
+				(props.contents.mobileView === "main"
+					? "mobile-active"
+					: "mobile-inactive")
+			}
+		>
 			{props.contents.selectedChat ? (
 				<Chat contents={props.contents} />
 			) : (

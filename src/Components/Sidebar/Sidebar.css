@@ -14,3 +14,10 @@
 	background-size: cover;
 	background-position: center;
 }
+
+@media (max-width: 850px) {
+	.sidebar-container {
+		flex: 1;
+		border-right: 0px;
+	}
+}

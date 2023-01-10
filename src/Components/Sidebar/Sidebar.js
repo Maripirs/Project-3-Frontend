@@ -9,7 +9,14 @@ const Sidebar = (props) => {
 	const [page, setPage] = useState("nav");
 
 	return (
-		<div className="sidebar-container">
+		<div
+			className={
+				"sidebar-container " +
+				(props.contents.mobileView === "side"
+					? "mobile-active"
+					: "mobile-inactive")
+			}
+		>
 			<div className="sidebar-default-container">
 				{page === "nav" ? (
 					<>

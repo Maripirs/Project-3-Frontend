@@ -18,6 +18,7 @@ const Chat = (props) => {
 					);
 					let chat = await response.json();
 					setChatState(chat);
+					props.contents.setChatLoaded(true);
 					console.log("fetched chat", chat);
 					let contact = null;
 					//Checks which user in the chat is NOT the current user
@@ -47,6 +48,10 @@ const Chat = (props) => {
 		} else {
 			setRefresh("0");
 		}
+	};
+
+	const backToNav = () => {
+		props.contents.setMobileView("side");
 	};
 
 	const createMessage = async (messageData) => {
@@ -116,10 +121,14 @@ const Chat = (props) => {
 
 	return (
 		<>
-			{chatState ? (
+			{props.contents.chatLoaded ? (
 				<div className="chat-container">
 					<div className="chat-header">
 						<div className="contact-info">
+							<div className="mobile-only icon back-to-nav" onClick={backToNav}>
+								{" "}
+								&#60;
+							</div>
 							<div
 								className="contact-image-chat"
 								style={{ backgroundImage: `url(${contact.image})` }}
@@ -177,7 +186,15 @@ const Chat = (props) => {
 					</form>
 				</div>
 			) : (
-				<>"loading"</>
+				<>
+					<div className="chat-container">
+						<div className="chat-header ">
+							<h2 className="loading">"Loading..."</h2>
+						</div>
+						<div className="messages-display"></div>
+						<div className="type-message-bar"></div>
+					</div>
+				</>
 			)}
 		</>
 	);

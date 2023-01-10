@@ -22,6 +22,7 @@ const ContactsNav = (props) => {
 				body: JSON.stringify(chatData),
 			});
 			const newChat = await response.json();
+			props.contents.setChatLoaded(true);
 			return await newChat;
 		} catch (error) {}
 	};
@@ -29,7 +30,9 @@ const ContactsNav = (props) => {
 	//Will set the chat to active and pull it up on the main display
 	const handleSelectChat = (e) => {
 		let id = e.target.closest(".nav-chat").id;
+		props.contents.setChatLoaded(false);
 		props.contents.setSelectedChat(id);
+		props.contents.setMobileView("main");
 	};
 
 	//For when we are searching
@@ -66,6 +69,7 @@ const ContactsNav = (props) => {
 			let newChatData = {
 				users: usersArray,
 			};
+			props.contents.setChatLoaded(false);
 			let createdChat = await createChat(newChatData);
 			console.log("created chat ID", createdChat._id);
 			props.contents.setSelectedChat(createdChat._id);
@@ -198,7 +202,7 @@ const ContactsNav = (props) => {
 					onChange={searchUsers}
 				/>
 			</div>
-			<div className="contacts-nav">
+			<div className={"contacts-nav"}>
 				{searchInput.length > 0 ? <div>{filteredUsers}</div> : chatsDisplay}
 			</div>
 		</div>

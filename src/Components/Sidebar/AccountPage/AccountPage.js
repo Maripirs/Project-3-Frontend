@@ -65,7 +65,7 @@ const AccountPage = (props) => {
 			<div className="account-header">
 				<div className="header-contents">
 					<div className="go-back" onClick={handleGoBack}>
-						&larr;
+						&#60;
 					</div>
 					<p>Profile</p>
 				</div>

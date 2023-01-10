@@ -10,7 +10,8 @@ function App() {
 	const [user, setUser] = useState(null);
 	const [selectedChat, setSelectedChat] = useState(null);
 	const [chatState, setChatState] = useState(null);
-
+	const [mobileView, setMobileView] = useState("side");
+	const [chatLoaded, setChatLoaded] = useState(false);
 	//Fetching the active user to see if chats have changed (preview chat, not the detailed one)
 	const refreshUser = async (userID, setUserFunction, URL) => {
 		console.log("refreshing user");
@@ -49,8 +50,12 @@ function App() {
 		setUser: setUser,
 		chatState: chatState,
 		setChatState: setChatState,
+		chatLoaded: chatLoaded,
+		setChatLoaded: setChatLoaded,
 		userList: userList,
 		setUserList: setUserList,
+		mobileView: mobileView,
+		setMobileView: setMobileView,
 		refreshUser: refreshUser,
 		formatTimestamp: formatTimestamp,
 	};

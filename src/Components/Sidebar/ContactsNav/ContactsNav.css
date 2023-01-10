@@ -98,10 +98,31 @@ p {
 	font-weight: 400;
 	font-size: 16px;
 }
-
-.active {
-	background-color: #2a3942;
+@media (min-width: 850px) {
+	.active {
+		background-color: #2a3942;
+	}
+	.active .text-preview {
+		color: #e9edef;
+	}
 }
-.active .text-preview {
-	color: #e9edef;
+
+@media (max-width: 850px) {
+	.contacts-nav-container {
+		padding: 10px;
+	}
+	.nav-chat {
+		height: 60px;
+	}
+	.contact-image {
+		width: 40px;
+		height: 40px;
+		border-radius: 20px;
+	}
+	.message-preview {
+		margin-left: 10px;
+	}
+	.search-icon {
+		padding: 0px 10px 0 20px;
+	}
 }

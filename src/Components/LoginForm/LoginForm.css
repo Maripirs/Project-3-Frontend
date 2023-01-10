@@ -1,7 +1,7 @@
 .form-container {
 	height: 70vh;
 	width: 70vh;
-	max-width: 95vw;
+	max-width: 90vw;
 	border-radius: 5px;
 	background-color: white;
 	display: flex;
@@ -53,4 +53,16 @@ input.login-input {
 	width: fit-content;
 	background-color: blue;
 	color: white;
+}
+
+@media (max-width: 850px) {
+	.forms {
+		width: 200px;
+	}
+	.form-container {
+		height: 60vh;
+	}
+	.submit-button {
+		height: 40px;
+	}
 }

@@ -9,3 +9,16 @@ textarea:focus,
 button:focus {
 	outline: none;
 }
+/* mobile */
+@media (max-width: 850px) {
+	.desktop-only,
+	.mobile-inactive {
+		display: none !important;
+	}
+}
+/* desktop */
+@media (min-width: 850px) {
+	.mobile-only {
+		display: none !important;
+	}
+}
