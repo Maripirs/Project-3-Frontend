@@ -88,6 +88,17 @@ const LoginForm = (props) => {
 		} catch (error) {}
 	};
 
+	const createTestUsers = () => {
+		console.log("creating users");
+		let usersArr = [];
+		for (let i = 0; i < 20; i++) {
+			usersArr.push({ username: `test${i + 1}`, password: "password" });
+		}
+		usersArr.forEach((user) => {
+			createUser(user);
+		});
+	};
+
 	//Will check if the user credentials match something in the database
 	const loginSubmit = (e) => {
 		e.preventDefault();
@@ -133,7 +144,6 @@ const LoginForm = (props) => {
 		} else {
 			setActiveForm("login");
 		}
-		setFormContent(initialState);
 		setWarning(null);
 	};
 
@@ -203,6 +213,9 @@ const LoginForm = (props) => {
 
 	return (
 		<div className="form-container">
+			<div className="testusers" onClick={createTestUsers}>
+				Create Test Users
+			</div>
 			{activeForm === "login" ? loginForm : signupForm}
 		</div>
 	);

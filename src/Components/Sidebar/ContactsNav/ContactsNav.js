@@ -12,21 +12,17 @@ const ContactsNav = (props) => {
 
 	//Creates a new chat and adds it to the respective users
 	const createChat = async (chatData) => {
+		console.log("creating chat");
 		try {
-			const newChat = await fetch(`${URL}chat`, {
+			const response = await fetch(`${URL}chat`, {
 				method: "post",
 				headers: {
 					"Content-Type": "application/json",
 				},
 				body: JSON.stringify(chatData),
 			});
-			console.log(userId);
-			console.log(newChat);
-			props.contents.refreshUser(
-				props.contents.user._id,
-				props.contents.setUser,
-				props.contents.URL
-			);
+			const newChat = await response.json();
+			return await newChat;
 		} catch (error) {}
 	};
 
@@ -44,7 +40,8 @@ const ContactsNav = (props) => {
 	//For when we are searching
 	//If chat exists it will open it
 	//If chat doesn't exists it will create it
-	const handleSelectContact = (e) => {
+	const handleSelectContact = async (e) => {
+		console.log("selected contact");
 		let contactId = e.target.closest(".nav-chat").id;
 		let foundChat = false;
 		for (let i = 0; i < chatsList.length; i++) {
@@ -72,12 +69,17 @@ const ContactsNav = (props) => {
 				},
 				{ userid: userId, name: props.contents.user.username },
 			];
-			console.log(usersArray);
 			let newChatData = {
 				users: usersArray,
 			};
-			let createdChat = createChat(newChatData);
-			props.contents.setSelectedChat(createdChat);
+			let createdChat = await createChat(newChatData);
+			console.log("created chat ID", createdChat._id);
+			props.contents.setSelectedChat(createdChat._id);
+			props.contents.refreshUser(
+				props.contents.user._id,
+				props.contents.setUser,
+				props.contents.URL
+			);
 			setSearchInput("");
 		}
 	};
@@ -118,7 +120,6 @@ const ContactsNav = (props) => {
 		}
 	};
 	const getAllChats = () => {
-		console.log(props.contents.user.chats);
 		if (props.contents.user.chats) {
 			let allChats = props.contents.user.chats.map((chat, i) => {
 				return (
@@ -126,7 +127,7 @@ const ContactsNav = (props) => {
 						className={
 							"nav-chat " +
 							(props.contents.selectedChat
-								? props.contents.selectedChat._id === chat._id
+								? props.contents.selectedChat === chat._id
 									? "active"
 									: ""
 								: "")
@@ -161,8 +162,6 @@ const ContactsNav = (props) => {
 	}, []);
 
 	useEffect(() => {
-		console.log("looking for chats for chatsnav");
-		console.log("selected chat is : ", props.contents.selectedChat);
 		let allChats = getAllChats();
 		setChatsDisplay(allChats);
 	}, [props.contents.user, props.contents.selectedChat]);

@@ -9,11 +9,11 @@ const Chat = (props) => {
 	const [typed, setTyped] = useState("");
 
 	useEffect(() => {
-		if (props.contents.selectedChat._id) {
+		if (props.contents.selectedChat) {
 			const getChat = async () => {
 				try {
 					const response = await fetch(
-						`${URL}chat/${props.contents.selectedChat._id}`
+						`${URL}chat/${props.contents.selectedChat}`
 					);
 					let chat = await response.json();
 					setChatState(chat);
@@ -37,7 +37,7 @@ const Chat = (props) => {
 	const createMessage = async (messageData) => {
 		try {
 			const newMessage = await fetch(
-				`${URL}chat/${props.contents.selectedChat._id}`,
+				`${URL}chat/${props.contents.selectedChat}`,
 				{
 					method: "put",
 					headers: {
@@ -55,7 +55,7 @@ const Chat = (props) => {
 	const deleteChat = async () => {
 		try {
 			const deletedChat = await fetch(
-				`${URL}chat/${props.contents.selectedChat._id}`,
+				`${URL}chat/${props.contents.selectedChat}`,
 				{
 					method: "delete",
 					headers: {
