@@ -90,10 +90,64 @@ const LoginForm = (props) => {
 
 	const createTestUsers = () => {
 		console.log("creating users");
-		let usersArr = [];
-		for (let i = 0; i < 20; i++) {
-			usersArr.push({ username: `test${i + 1}`, password: "password" });
-		}
+		let usersArr = [
+			{
+				username: "troy",
+				password: "password",
+			},
+			{
+				username: "sarahrose",
+				password: "password",
+			},
+			{
+				username: "ken",
+				password: "password",
+			},
+			{
+				username: "austin",
+				password: "password",
+			},
+			{
+				username: "barezi",
+				password: "password",
+			},
+			{
+				username: "david",
+				password: "password",
+			},
+			{
+				username: "jeddy",
+				password: "password",
+			},
+			{
+				username: "luigi",
+				password: "password",
+			},
+			{
+				username: "megan",
+				password: "password",
+			},
+			{
+				username: "tim",
+				password: "password",
+			},
+			{
+				username: "tyler",
+				password: "password",
+			},
+			{
+				username: "maripi",
+				password: "password",
+			},
+		];
+		// for (let i = 0; i < 20; i++) {
+		// 	usersArr.push({
+		// 		username: `test${i + 1}`,
+		// 		password: "password",
+		// 		image:
+		// 			"https://upload.wikimedia.org/wikipedia/commons/2/2c/Default_pfp.svg",
+		// 	});
+		// }
 		usersArr.forEach((user) => {
 			createUser(user);
 		});

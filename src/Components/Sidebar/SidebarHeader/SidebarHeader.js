@@ -8,10 +8,14 @@ const SidebarHeader = (props) => {
 			props.contents.URL
 		);
 	};
+	const handleSettings = () => {
+		props.setPage("account");
+	};
 	return (
 		<div className="sidebar-header">
 			<div className="user-info">
 				<div
+					onClick={handleSettings}
 					className="user-picture"
 					style={{ backgroundImage: `url(${props.contents.user.image})` }}
 				></div>

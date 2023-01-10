@@ -1,0 +1,92 @@
+.account-header {
+	height: 120px;
+	background-color: #202c33;
+	display: flex;
+	justify-content: flex-start;
+	align-items: flex-end;
+}
+.header-contents {
+	color: #e9edef;
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
+}
+
+.go-back {
+	font-size: 25px;
+	font-weight: bold;
+	margin: 20px;
+}
+
+.header-contents p {
+	color: #e9edef;
+}
+
+.account-image-container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.account-image {
+	width: 200px;
+	height: 200px;
+	background-size: cover;
+	background-position: center;
+	border-radius: 200px;
+	margin: 30px;
+}
+
+.account-info-container {
+	flex-grow: 1;
+}
+
+.account-page-container {
+	display: flex;
+	flex-direction: column;
+	flex-grow: 1;
+}
+.field-name {
+	color: #008069;
+	font-size: 12px;
+	margin-left: 20px;
+}
+.display-name-field {
+	display: flex;
+	justify-content: space-between;
+	margin: 5px 20px;
+	align-items: center;
+}
+
+.icon {
+	color: #8696a0;
+	font-weight: bold;
+	font-size: 20px;
+}
+
+.edit-icon {
+	transform: scaleX(-1);
+	color: #8696a0;
+	font-weight: bold;
+	font-size: 20px;
+}
+
+.name-text,
+input.user-form {
+	color: #e9edef;
+	font-weight: 400;
+	font-size: 16px;
+}
+
+.display-name-form {
+	display: flex;
+}
+input.user-form {
+	background-color: transparent;
+	border: none;
+	padding: 0px 0px;
+	font-stretch: 0;
+}
+.display-name-container form {
+	border-bottom: #008069 2px solid;
+}
