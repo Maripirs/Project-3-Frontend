@@ -18,7 +18,6 @@ const LoginForm = (props) => {
 
 	// This function is solely changing the value to force a rerender
 	const handleRefresh = () => {
-		console.log("Refreshing");
 		if (refresh === "0") {
 			setRefresh("1");
 		} else {
@@ -32,7 +31,6 @@ const LoginForm = (props) => {
 			const response = await fetch(`${URL}user/${userID}`);
 			let user = await response.json();
 			props.contents.setUser(user);
-			console.log(user);
 		} catch (error) {
 			console.log(error);
 		}
@@ -47,7 +45,6 @@ const LoginForm = (props) => {
 
 				setAllUsers(users);
 				props.contents.setUserList(users);
-				console.log(users);
 			} catch (error) {
 				console.log(error);
 			}
@@ -62,7 +59,6 @@ const LoginForm = (props) => {
 
 	//looping through the list of users to see iif the input matches an existing user
 	const userExists = (users, username) => {
-		console.log(username, users);
 		if (users.length > 0) {
 			for (let i = 0; i < users.length; i++) {
 				if (users[i].username === username) {
@@ -205,12 +201,14 @@ const LoginForm = (props) => {
 					placeholder="username"
 					name="username"
 					onChange={handleChange}
+					className="login-input"
 				/>
 				<input
 					type="password"
 					placeholder="password"
 					name="password"
 					onChange={handleChange}
+					className="login-input"
 				/>
 				<p className="warning">{warning ? warning : ""}</p>
 				<input className="submit-button" type="submit" />
@@ -234,18 +232,21 @@ const LoginForm = (props) => {
 					placeholder="username"
 					name="username"
 					onChange={handleChange}
+					className="login-input"
 				/>
 				<input
 					type="password"
 					placeholder="password"
 					name="password"
 					onChange={handleChange}
+					className="login-input"
 				/>
 				<input
 					type="password"
 					placeholder="confirm password"
 					name="confirm"
 					onChange={handleChange}
+					className="login-input"
 				/>
 				<p className="warning">{warning ? warning : ""}</p>
 				<input className="submit-button" type="submit" />

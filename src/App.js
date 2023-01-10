@@ -23,11 +23,16 @@ function App() {
 		}
 	};
 	//function that will restructure the timestamp string
-	const formatTimestamp = (timestamp) => {
-		let year = timestamp.slice(0, 4);
-		let month = timestamp.slice(5, 7);
-		let day = timestamp.slice(8, 10);
-		return month + "/" + day + "/" + year;
+	const formatTimestamp = (timestamp, scope) => {
+		if (scope === "date") {
+			let year = timestamp.slice(0, 4);
+			let month = timestamp.slice(5, 7);
+			let day = timestamp.slice(8, 10);
+			return month + "/" + day + "/" + year;
+		} else {
+			let hour = timestamp.slice(11, 16);
+			return hour;
+		}
 	};
 
 	// This object is being passed around between components. it contains most of the States that we need to track through the app

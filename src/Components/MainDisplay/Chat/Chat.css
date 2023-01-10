@@ -5,12 +5,13 @@
 }
 
 .chat-header {
-	height: 60px;
-	min-height: 60px;
+	height: 40px;
+	min-height: 40px;
 	background-color: #202c33;
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
+	padding: 10px 16px;
 }
 .contact-info {
 	display: flex;
@@ -20,6 +21,16 @@
 	color: #e9edef;
 	font-weight: 400;
 	font-size: 18px;
+	margin-left: 20px;
+}
+
+.contact-image-chat {
+	width: 40px;
+	height: 40px;
+	margin: 0;
+	background-size: cover;
+	background-position: center;
+	border-radius: 20px;
 }
 
 .messages-display {
@@ -46,6 +57,7 @@
 	border-radius: 10px;
 	margin: 3px 50px;
 	justify-content: space-between;
+	text-align: justify;
 }
 
 .outgoing {
@@ -60,14 +72,14 @@
 }
 .message-content {
 	color: #e9edef;
-	font-size: 12px;
+	font-size: 14px;
 }
 .message-timestamp {
 	color: #ffffff99;
-	font-size: 8px;
+	font-size: 9px;
 	display: flex;
 	align-items: flex-end;
-	margin-left: 3px;
+	margin-left: 5px;
 }
 
 .type-message-bar {
@@ -95,7 +107,9 @@
 }
 
 .refresh {
-	color: #8696a0;
 	width: 50px;
-	font-size: 20px;
+	font-weight: 300;
+}
+input {
+	color: #e9edef;
 }

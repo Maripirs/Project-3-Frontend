@@ -22,7 +22,7 @@ const SidebarHeader = (props) => {
 				<h3 className="user-name">{props.contents.user.displayname}</h3>
 			</div>
 			<div className="settings">
-				<div className="refresh" onClick={refreshFunction}>
+				<div className="refresh icon" onClick={refreshFunction}>
 					&#8635;
 				</div>
 				<div className="settings-button"> &#xFE19;</div>

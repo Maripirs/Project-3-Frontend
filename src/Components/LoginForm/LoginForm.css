@@ -33,6 +33,10 @@
 	margin: 10px;
 	padding: 5px;
 }
+
+input.login-input {
+	color: #3b4a54;
+}
 .submit-button {
 	background-color: #008069;
 	color: white;

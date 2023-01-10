@@ -36,7 +36,6 @@ const ContactsNav = (props) => {
 	//If chat exists it will open it
 	//If chat doesn't exists it will create it
 	const handleSelectContact = async (e) => {
-		console.log("selected contact");
 		let contactId = e.target.closest(".nav-chat").id;
 		let foundChat = false;
 		for (let i = 0; i < chatsList.length; i++) {
@@ -101,7 +100,10 @@ const ContactsNav = (props) => {
 						onClick={handleSelectContact}
 					>
 						<div className="contact-image-container">
-							<div className="contact-image"></div>
+							<div
+								className="contact-image"
+								style={{ backgroundImage: `url(${user.image})` }}
+							></div>
 						</div>
 						<div className="message-preview">
 							<div className="name-and-time">
@@ -157,10 +159,16 @@ const ContactsNav = (props) => {
 							<div className="name-and-time">
 								<h3 className="nav-chat-name">{contact.displayname}</h3>
 								<p className="timestamp">
-									{props.contents.formatTimestamp(chat.updatedAt)}
+									{props.contents.formatTimestamp(chat.updatedAt, "date")}
 								</p>
 							</div>
-							<p className="text-preview">{chat.lastMessage}</p>
+							<p className="text-preview">
+								{chat.lastMessage
+									? chat.lastMessage.length > 60
+										? `${chat.lastMessage.slice(0, 40)} . . .`
+										: chat.lastMessage
+									: ""}
+							</p>
 						</div>
 					</div>
 				);

@@ -5,9 +5,10 @@ const Chat = (props) => {
 	let URL = props.contents.URL;
 	let chatState = props.contents.chatState;
 	let setChatState = props.contents.setChatState;
+	let userList = props.contents.userList;
 	const [refresh, setRefresh] = useState("0");
 	const [typed, setTyped] = useState("");
-
+	const [contact, setContact] = useState("");
 	useEffect(() => {
 		if (props.contents.selectedChat) {
 			const getChat = async () => {
@@ -18,6 +19,20 @@ const Chat = (props) => {
 					let chat = await response.json();
 					setChatState(chat);
 					console.log("fetched chat", chat);
+					let contact = null;
+					//Checks which user in the chat is NOT the current user
+					let contactID =
+						chat.users[0].userid === props.contents.user._id
+							? chat.users[1].userid
+							: chat.users[0].userid;
+					//looks for the object of the user in the userList
+					for (let i = 0; i < userList.length; i++) {
+						if (userList[i]._id === contactID) {
+							setContact(userList[i]);
+							break;
+						}
+					}
+					console.log(contact);
 				} catch (error) {
 					console.log(error);
 				}
@@ -46,6 +61,12 @@ const Chat = (props) => {
 					body: JSON.stringify(messageData),
 				}
 			);
+			props.contents.refreshUser(
+				props.contents.user._id,
+				props.contents.setUser,
+				props.contents.URL
+			);
+			handleRefresh();
 			console.log(newMessage);
 		} catch (error) {
 			console.log(error);
@@ -82,34 +103,36 @@ const Chat = (props) => {
 			user: `${props.contents.user._id}`,
 		};
 		createMessage(newMessage);
-		//this should probably be a new fetch - refresh chat
-		let newMessages = [...chatState.messages, newMessage];
-		let newChatState = { ...chatState, messages: newMessages };
-		setChatState(newChatState);
+		// //this should probably be a new fetch - refresh chat
+		// let newMessages = [...chatState.messages, newMessage];
+		// let newChatState = { ...chatState, messages: newMessages };
+		// setChatState(newChatState);
 		setTyped("");
 	};
 
 	const handleChange = (e) => {
 		setTyped(e.target.value);
 	};
+
 	return (
 		<>
 			{chatState ? (
 				<div className="chat-container">
 					<div className="chat-header">
 						<div className="contact-info">
-							<div className="contact-image"></div>
-							<h2 className="contact-name">
-								{chatState.users[0].name === props.contents.userName
-									? chatState.users[1].name
-									: chatState.users[0].name}
-							</h2>
+							<div
+								className="contact-image-chat"
+								style={{ backgroundImage: `url(${contact.image})` }}
+							></div>
+							<h2 className="contact-name">{contact.displayname}</h2>
 						</div>
-						<div className="refresh" onClick={handleRefresh}>
-							&#8635;
-						</div>
-						<div className="delete" onClick={deleteChat}>
-							x
+						<div className="settings">
+							<div className="refresh icon" onClick={handleRefresh}>
+								&#8635;
+							</div>
+							<div className="delete icon" onClick={deleteChat}>
+								x
+							</div>
 						</div>
 					</div>
 					<div className="messages-display">
@@ -129,7 +152,10 @@ const Chat = (props) => {
 										<div className="message-container">
 											<div className="message-content">{message.content}</div>
 											<div className="message-timestamp">
-												{message.timestamp}
+												{props.contents.formatTimestamp(
+													message.createdAt,
+													"time"
+												)}
 											</div>
 										</div>
 									</div>
