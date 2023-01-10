@@ -140,15 +140,8 @@ const LoginForm = (props) => {
 				password: "password",
 			},
 		];
-		// for (let i = 0; i < 20; i++) {
-		// 	usersArr.push({
-		// 		username: `test${i + 1}`,
-		// 		password: "password",
-		// 		image:
-		// 			"https://upload.wikimedia.org/wikipedia/commons/2/2c/Default_pfp.svg",
-		// 	});
-		// }
 		usersArr.forEach((user) => {
+			user.displayname = user.username;
 			createUser(user);
 		});
 	};
@@ -178,6 +171,7 @@ const LoginForm = (props) => {
 				createUser({
 					username: formContent.username,
 					password: formContent.password,
+					displayName: formContent.username,
 				});
 				changeForm();
 				e.target.reset();

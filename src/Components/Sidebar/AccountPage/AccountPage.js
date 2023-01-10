@@ -95,10 +95,8 @@ const AccountPage = (props) => {
 						</form>
 					) : (
 						<div className="display-name-field">
-							<p className="name-text">
-								{props.contents.user.displayname.length > 1
-									? props.contents.user.displayname
-									: props.contents.user.username}
+							<p className="name-text" onClick={handleEditName}>
+								{props.contents.user.displayname}
 							</p>
 							<div className="edit-icon icon" onClick={handleEditName}>
 								&#9998;

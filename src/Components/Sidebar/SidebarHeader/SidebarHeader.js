@@ -19,12 +19,14 @@ const SidebarHeader = (props) => {
 					className="user-picture"
 					style={{ backgroundImage: `url(${props.contents.user.image})` }}
 				></div>
-				<h3 className="user-name">{props.contents.user.username}</h3>
+				<h3 className="user-name">{props.contents.user.displayname}</h3>
 			</div>
-			<div className="refresh" onClick={refreshFunction}>
-				&#8635;
+			<div className="settings">
+				<div className="refresh" onClick={refreshFunction}>
+					&#8635;
+				</div>
+				<div className="settings-button"> &#xFE19;</div>
 			</div>
-			<div className="settings-button"> &#xFE19;</div>
 		</div>
 	);
 };

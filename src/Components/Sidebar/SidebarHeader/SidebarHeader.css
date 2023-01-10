@@ -21,8 +21,12 @@
 	color: #e9edef;
 }
 .settings-button {
-	color: #e9edef;
+	color: #8696a0;
 	font-size: 20px;
 	font-weight: bold;
 	margin-right: 10px;
+}
+
+.settings {
+	display: flex;
 }

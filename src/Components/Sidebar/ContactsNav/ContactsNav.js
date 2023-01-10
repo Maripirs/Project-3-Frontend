@@ -29,12 +29,7 @@ const ContactsNav = (props) => {
 	//Will set the chat to active and pull it up on the main display
 	const handleSelectChat = (e) => {
 		let id = e.target.closest(".nav-chat").id;
-		for (let i = 0; i < chatsList.length; i++) {
-			if (chatsList[i]._id === id) {
-				props.contents.setSelectedChat(chatsList[i]);
-				break;
-			}
-		}
+		props.contents.setSelectedChat(id);
 	};
 
 	//For when we are searching
@@ -119,9 +114,25 @@ const ContactsNav = (props) => {
 			setFilteredUsers(searchResults);
 		}
 	};
+
+	//function that translates the list of chats of the user into HTML elements
 	const getAllChats = () => {
 		if (props.contents.user.chats) {
 			let allChats = props.contents.user.chats.map((chat, i) => {
+				let contact = null;
+				//Checks which user in the chat is NOT the current user
+				let contactID =
+					chat.users[0].userid === props.contents.user._id
+						? chat.users[1].userid
+						: chat.users[0].userid;
+				//looks for the object of the user in the userList
+				for (let i = 0; i < userList.length; i++) {
+					if (userList[i]._id === contactID) {
+						contact = userList[i];
+						break;
+					}
+				}
+
 				return (
 					<div
 						className={
@@ -137,16 +148,17 @@ const ContactsNav = (props) => {
 						onClick={handleSelectChat}
 					>
 						<div className="contact-image-container">
-							<div className="contact-image"></div>
+							<div
+								className="contact-image"
+								style={{ backgroundImage: `url(${contact.image})` }}
+							></div>
 						</div>
 						<div className="message-preview">
 							<div className="name-and-time">
-								<h3 className="nav-chat-name">
-									{chat.users[0].name === props.contents.user.username
-										? chat.users[1].name
-										: chat.users[0].name}
-								</h3>
-								<p className="timestamp">{chat.updatedAt}</p>
+								<h3 className="nav-chat-name">{contact.displayname}</h3>
+								<p className="timestamp">
+									{props.contents.formatTimestamp(chat.updatedAt)}
+								</p>
 							</div>
 							<p className="text-preview">{chat.lastMessage}</p>
 						</div>

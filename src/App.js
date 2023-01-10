@@ -22,6 +22,13 @@ function App() {
 			console.log(error);
 		}
 	};
+	//function that will restructure the timestamp string
+	const formatTimestamp = (timestamp) => {
+		let year = timestamp.slice(0, 4);
+		let month = timestamp.slice(5, 7);
+		let day = timestamp.slice(8, 10);
+		return month + "/" + day + "/" + year;
+	};
 
 	// This object is being passed around between components. it contains most of the States that we need to track through the app
 	const contents = {
@@ -40,6 +47,7 @@ function App() {
 		userList: userList,
 		setUserList: setUserList,
 		refreshUser: refreshUser,
+		formatTimestamp: formatTimestamp,
 	};
 
 	//If user State hasn't been defined, Access page will render, otherwise it will go to the main Page
