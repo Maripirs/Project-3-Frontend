@@ -20,6 +20,7 @@
 
 .header-contents p {
 	color: #e9edef;
+	font-size: 19px;
 }
 
 .account-image-container {
@@ -31,14 +32,11 @@
 .account-image {
 	width: 200px;
 	height: 200px;
+	background-image: URL("https://as2.ftcdn.net/v2/jpg/02/15/84/43/1000_F_215844325_ttX9YiIIyeaR7Ne6EaLLjMAmy4GvPC69.jpg");
 	background-size: cover;
 	background-position: center;
 	border-radius: 200px;
 	margin: 30px;
-}
-
-.account-info-container {
-	flex-grow: 1;
 }
 
 .account-page-container {
@@ -46,15 +44,24 @@
 	flex-direction: column;
 	flex-grow: 1;
 }
+.account-info-container {
+	flex-grow: 1;
+	padding: 20px;
+}
+
+.account-form-container {
+	margin: 60px 0px;
+}
+
 .field-name {
 	color: #008069;
-	font-size: 12px;
-	margin-left: 20px;
+	font-size: 14px;
+	margin-bottom: 20px;
 }
+
 .display-name-field {
 	display: flex;
 	justify-content: space-between;
-	margin: 5px 20px;
 	align-items: center;
 }
 
@@ -75,7 +82,7 @@
 input.user-form {
 	color: #e9edef;
 	font-weight: 400;
-	font-size: 16px;
+	font-size: 17px;
 }
 
 .display-name-form {
@@ -87,6 +94,11 @@ input.user-form {
 	padding: 0px 0px;
 	font-stretch: 0;
 }
-.display-name-container form {
+.account-page-container form {
 	border-bottom: #008069 2px solid;
+}
+.form-description {
+	font-size: 14px;
+	font-weight: 400;
+	margin-top: 50px;
 }

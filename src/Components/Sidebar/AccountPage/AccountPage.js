@@ -5,10 +5,12 @@ const AccountPage = (props) => {
 	const URL = props.contents.URL;
 	const [editDisplayName, setEditDisplayName] = useState(false);
 	const [nameForm, setNameForm] = useState("");
+	const [editImage, setEditImage] = useState(false);
+	const [imageForm, setImageForm] = useState("");
 	const handleGoBack = () => {
 		props.setPage("nav");
 	};
-	const handleEdit = () => {
+	const handleEditName = () => {
 		setNameForm(
 			props.contents.user.displayname.length > 1
 				? props.contents.user.displayname
@@ -16,26 +18,44 @@ const AccountPage = (props) => {
 		);
 		setEditDisplayName(true);
 	};
+	const handleEditImage = () => {
+		setEditImage(true);
+	};
 	const handleNameSubmit = (e) => {
 		e.preventDefault();
-		updateDisplayName(nameForm);
+		updateUser({ displayname: nameForm });
 		setEditDisplayName(false);
+	};
+	const handleImageSubmit = (e) => {
+		e.preventDefault();
+		if (imageForm.length > 0) {
+			updateUser({ image: imageForm });
+		}
+		setEditImage(false);
 	};
 
 	const handleNameChange = (e) => {
 		setNameForm(e.target.value);
 	};
 
-	const updateDisplayName = async (newName) => {
+	const handleImageChange = (e) => {
+		setImageForm(e.target.value);
+	};
+	const updateUser = async (updates) => {
 		try {
 			const updatedUser = await fetch(`${URL}user/${props.contents.user._id}`, {
 				method: "put",
 				headers: {
 					"Content-Type": "application/json",
 				},
-				body: JSON.stringify({ displayname: `${newName}` }),
+				body: JSON.stringify(updates),
 			});
 			console.log(updatedUser);
+			props.contents.refreshUser(
+				props.contents.user._id,
+				props.contents.setUser,
+				props.contents.URL
+			);
 		} catch (error) {
 			console.log(error);
 		}
@@ -55,9 +75,10 @@ const AccountPage = (props) => {
 					<div
 						className="account-image"
 						style={{ backgroundImage: `url(${props.contents.user.image})` }}
+						onClick={handleEditImage}
 					></div>
 				</div>
-				<div className="display-name-container">
+				<div className="account-form-container">
 					<p className="field-name">Your name</p>
 					{editDisplayName ? (
 						<form onSubmit={handleNameSubmit} className="display-name-field">
@@ -79,9 +100,40 @@ const AccountPage = (props) => {
 									? props.contents.user.displayname
 									: props.contents.user.username}
 							</p>
-							<div className="edit-icon icon" onClick={handleEdit}>
+							<div className="edit-icon icon" onClick={handleEditName}>
 								&#9998;
 							</div>
+						</div>
+					)}
+					<p className="form-description">
+						This is not your username or pin. This name will be visible to your
+						WhatsApp contacts.
+					</p>
+				</div>
+				<div className="account-form-container">
+					<p className="field-name">Your profile image</p>
+					{editImage ? (
+						<>
+							<form onSubmit={handleImageSubmit} className="display-name-field">
+								<input
+									className="user-form"
+									placeholder="image URL"
+									name="username"
+									value={imageForm}
+									onChange={handleImageChange}
+								/>
+								<div className="name-sumbit icon" onClick={handleImageSubmit}>
+									✓
+								</div>
+							</form>
+							<p className="form-description">
+								You can add a URL to update your Profile Picture.
+							</p>
+						</>
+					) : (
+						<div className="display-name-field" onClick={handleEditImage}>
+							<p className="name-text">Edit Image</p>
+							<div className="edit-icon icon">&#9998;</div>
 						</div>
 					)}
 				</div>

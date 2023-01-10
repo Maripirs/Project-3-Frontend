@@ -9,6 +9,6 @@
 .main-page-container {
 	height: calc(100% - 30px);
 	width: calc(100% - 30px);
-	max-width: 1300px;
+	max-width: 1600px;
 	display: flex;
 }
