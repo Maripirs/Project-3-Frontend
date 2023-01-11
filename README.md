@@ -10,23 +10,35 @@ Unlike WhatsApp, this clone does not rely on phone numbers and contacts. This is
 <br>
 <br>
 
+## Why a Whatsapp Clone? 
+Project 3 presented the challenge to Reverse Engenieer a App with the objective of gaining better understanging of core Web Dev concepts.
+WhatsApp seemed like a fun excercise to experiment with multiple clients interacting directly through the website.
+
+<br><br>
 ## Wireframe 
 ##### Access Page
 
 ###### The Access Page, where the user is prompted with a log-in form and with an option to swap to a sign up form in case the user doesn't have an account
-<img width="1845" alt="Access Page Screenshot" src="https://user-images.githubusercontent.com/112437477/211412611-ab5ebb5f-1590-4dbb-9c73-e378ca4c86a2.png">
+<img width="1870" alt="Screen Shot 2023-01-11 at 12 58 01 PM" src="https://user-images.githubusercontent.com/112437477/211916515-827330d1-8800-46f6-8a95-568c1baf3fa7.png">
+
 
 ##### Main Page
 ###### The Main Page, where the user will land after succesfully loggin in
-
+<img width="1835" alt="Screen Shot 2023-01-11 at 12 21 22 PM" src="https://user-images.githubusercontent.com/112437477/211909674-55712f49-60b4-4a44-a186-90a73409023b.png">
 
 ##### Chat Page
 ###### The Chat Page, when the user has selected a Chat to start messaging
+<img width="1871" alt="Screen Shot 2023-01-11 at 12 37 13 PM" src="https://user-images.githubusercontent.com/112437477/211912655-27d588dc-a1c7-4a0a-ba60-4bb1fb100041.png">
 
+##### Account Settings
+###### Where the user can update their Display name, Profile Picture and Log out
+<img width="1869" alt="Screen Shot 2023-01-11 at 12 42 21 PM" src="https://user-images.githubusercontent.com/112437477/211913553-a0fd5109-3635-4b12-95dd-eae9bec97e8f.png">
+<br><br>
 ## Features
 
 - Send messages to other users through the app
 - Refresh the chat to see if you have received any new messages
+- Update your display name and profile picture
 
 <br>
 <br>
@@ -47,20 +59,118 @@ Unlike WhatsApp, this clone does not rely on phone numbers and contacts. This is
 
 <br><br>
 
-## Why a Whatsapp Clone? 
-Project 3 presented the challenge to Reverse Engenieer a App with the objective of gaining better understanging of core Web Dev concepts.
-WhatsApp seemed like a fun excercise to experiment with multiple clients interacting directly through the website.
+
+
+
+## Code Snippets
+
+#### Login and Sign Up forms
+###### Allows the User to change the active form
+
+```js
+const [activeForm, setActiveForm] = useState("login");
+const changeForm = () => {
+		if (activeForm === "login" || !activeForm) {
+			setActiveForm("signup");
+		} else {
+			setActiveForm("login");
+		}
+		setWarning(null);
+	}
+const signupForm =(
+    //...
+    <span className="change-form" onClick={changeForm}>
+	    Create One!
+	  </span>
+    //...
+  )
+  
+const signupForm =(
+    //...
+    <span className="change-form" onClick={changeForm}>
+	    Log In!
+	  </span>
+    //...
+  )
+   
+return (
+		<div className="form-container">
+			{activeForm === "login" ? loginForm : signupForm}
+		</div>
+	);
+```
+
+#### Create a Message 
+###### Collects the information from the User. Creates the message and adds it to the corresponding chat
+###### Backend
+```js
+router.put("/:id", async (req, res) => {
+	try {
+		createdMessage = await Messages.create(req.body);
+
+		res.json(
+			await Chat.findByIdAndUpdate(req.params.id, {
+				$push: {
+					messages: createdMessage._id,
+				},
+				lastMessage: req.body.content,
+			})
+		);
+	} catch (error) {
+		console.log(error);
+	}
+});
+```
+###### Frontend
+```js
+const createMessage = async (messageData) => {
+		try {
+			await fetch(`${URL}chat/${props.contents.selectedChat}`, {
+				method: "put",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify(messageData),
+			});
+			props.contents.refreshUser(
+				props.contents.user._id,
+				props.contents.setUser,
+				props.contents.URL
+			);
+			handleRefresh();
+		} catch (error) {
+			console.log(error);
+		}
+	};
+  const sendMessage = (e) => {
+		e.preventDefault();
+		let newMessage = {
+			content: typed,
+			user: `${props.contents.user._id}`,
+		};
+		createMessage(newMessage);
+		setTyped("");
+	};
+  	return (
+      //...
+      <form className="type-message-bar" onSubmit={sendMessage}>
+					//...
+      </form>
+      //...
+    )
+```
+
+
 
 <br><br>
 
 ## Whats next? 
 I the future, the following features could be implemented<br>
 
-- Create an Account Page, where the User Information will be displayed<br>
-- Allow the User to change their profile image and display name<br>
+
 - Make the messages and chats update in Real Time with the use of WebSockets<br>
 - Allow the user to change the background of a specific chat<br>
-- Giving the app a responsive design<br>
+- Implementing Group Chats
 
 <br><br>
 
