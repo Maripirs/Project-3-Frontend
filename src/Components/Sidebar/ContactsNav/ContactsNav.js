@@ -12,7 +12,6 @@ const ContactsNav = (props) => {
 
 	//Creates a new chat and adds it to the respective users
 	const createChat = async (chatData) => {
-		console.log("creating chat");
 		try {
 			const response = await fetch(`${URL}chat`, {
 				method: "post",
