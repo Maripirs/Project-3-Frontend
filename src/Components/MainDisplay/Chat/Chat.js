@@ -20,7 +20,7 @@ const Chat = (props) => {
 					);
 					let chat = await response.json();
 					setChatState(chat);
-					let contact = null;
+
 					//Checks which user in the chat is NOT the current user
 					let contactID =
 						chat.users[0].userid === props.contents.user._id
@@ -146,7 +146,6 @@ const Chat = (props) => {
 					</div>
 					<div className="messages-display">
 						<div className="inner-message-display">
-							<div className="empty-space"></div>
 							{chatState.messages.map((message, i) => {
 								return (
 									<div

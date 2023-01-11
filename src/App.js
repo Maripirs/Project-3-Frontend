@@ -14,7 +14,6 @@ function App() {
 	const [chatLoaded, setChatLoaded] = useState(false);
 	//Fetching the active user to see if chats have changed (preview chat, not the detailed one)
 	const refreshUser = async (userID, setUserFunction, URL) => {
-		console.log("refreshing user");
 		try {
 			const response = await fetch(`${URL}user/${userID}`);
 			let user = await response.json();

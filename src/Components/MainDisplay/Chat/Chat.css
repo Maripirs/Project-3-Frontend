@@ -43,9 +43,6 @@
 	overflow-y: scroll;
 }
 
-.empty-space {
-	flex-grow: 1;
-}
 .message-display-bar {
 	display: flex;
 }
