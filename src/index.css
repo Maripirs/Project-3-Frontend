@@ -1,14 +1,14 @@
 body {
 	margin: 0;
 	font-family: "Roboto";
-	overflow: auto;
 	height: 100%;
 	max-height: -webkit-fill-available;
+	overflow: auto;
 }
 html {
-	overflow: hidden;
 	height: 100%;
 	max-height: -webkit-fill-available;
+	overflow: hidden;
 }
 
 #root {

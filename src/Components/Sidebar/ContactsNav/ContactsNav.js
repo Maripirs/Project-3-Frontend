@@ -162,7 +162,7 @@ const ContactsNav = (props) => {
 							<div className="name-and-time">
 								<h3 className="nav-chat-name">{contact.displayname}</h3>
 								<p className="timestamp">
-									{/* {props.contents.formatTimestamp(chat.updatedAt, "date")} */}
+									{props.contents.formatTimestamp(chat.updatedAt, "date")}
 								</p>
 							</div>
 							<p className="text-preview">

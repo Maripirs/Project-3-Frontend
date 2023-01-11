@@ -158,10 +158,10 @@ const Chat = (props) => {
 										<div className="message-container">
 											<div className="message-content">{message.content}</div>
 											<div className="message-timestamp">
-												{/* {props.contents.formatTimestamp(
+												{props.contents.formatTimestamp(
 													message.createdAt,
 													"time"
-												)} */}
+												)}
 											</div>
 										</div>
 									</div>
