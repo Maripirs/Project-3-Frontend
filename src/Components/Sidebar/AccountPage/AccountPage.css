@@ -4,6 +4,7 @@
 	display: flex;
 	justify-content: flex-start;
 	align-items: flex-end;
+	border-radius: 5px 0px 0px 0px;
 }
 .header-contents {
 	color: #e9edef;

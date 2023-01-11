@@ -16,4 +16,5 @@ h2 {
 	align-items: center;
 	flex-direction: column;
 	background-color: #202c33;
+	border-radius: 0 5px 5px 0;
 }

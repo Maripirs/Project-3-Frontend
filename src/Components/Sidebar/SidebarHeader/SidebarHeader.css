@@ -1,6 +1,7 @@
 .sidebar-header {
 	height: 60px;
 	background-color: #202c33;
+	border-radius: 5px 0 0 5px;
 	display: flex;
 	justify-content: space-between;
 	align-items: center;

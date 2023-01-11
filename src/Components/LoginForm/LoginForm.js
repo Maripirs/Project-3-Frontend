@@ -71,7 +71,7 @@ const LoginForm = (props) => {
 	//Post route to create a new user with the data provided by the form
 	const createUser = async (userData) => {
 		try {
-			const newUser = await fetch(`${URL}user`, {
+			await fetch(`${URL}user`, {
 				method: "post",
 				headers: {
 					"Content-Type": "application/json",
@@ -83,102 +83,56 @@ const LoginForm = (props) => {
 		} catch (error) {}
 	};
 
-	const createTestUsers = () => {
-		console.log("creating users");
-		let usersArr = [
-			{
-				username: "troy",
-				password: "password",
-			},
-			{
-				username: "sarahrose",
-				password: "password",
-			},
-			{
-				username: "ken",
-				password: "password",
-			},
-			{
-				username: "austin",
-				password: "password",
-			},
-			{
-				username: "barezi",
-				password: "password",
-			},
-			{
-				username: "david",
-				password: "password",
-			},
-			{
-				username: "jeddy",
-				password: "password",
-			},
-			{
-				username: "luigi",
-				password: "password",
-			},
-			{
-				username: "megan",
-				password: "password",
-			},
-			{
-				username: "tim",
-				password: "password",
-			},
-			{
-				username: "tyler",
-				password: "password",
-			},
-			{
-				username: "maripi",
-				password: "password",
-			},
-		];
-		usersArr.forEach((user) => {
-			user.displayname = user.username;
-			createUser(user);
-		});
-	};
-
 	//Will check if the user credentials match something in the database
 	const loginSubmit = (e) => {
 		e.preventDefault();
 		let foundUser = userExists(allUsers, formContent.username);
-		if (foundUser) {
+		if (foundUser && formContent.password === foundUser.password) {
 			getUser(foundUser._id);
 		} else {
 			setWarning("invalid credentials");
 		}
-		getUser(allUsers[0]._id);
 	};
 
 	//Will create a new user and push it to the database
 	const signupSubmit = (e) => {
 		e.preventDefault();
 		let foundUser = false;
-		for (let i = 0; i < props.contents.userList.length; i++) {
-			if (
-				props.contents.userList[i].username.toLowerCase() ===
-				formContent.username.toLowerCase()
-			) {
-				setWarning("username not available");
-				foundUser = true;
-				break;
+		// If no fields are empty, we proceed to evaluate
+		if (
+			formContent.password.length > 1 &&
+			formContent.username.length > 1 &&
+			formContent.confirm.length > 1
+		) {
+			//Will check if the usename already exists
+			for (let i = 0; i < props.contents.userList.length; i++) {
+				if (
+					props.contents.userList[i].username.toLowerCase() ===
+					formContent.username.toLowerCase()
+				) {
+					setWarning("username not available");
+					foundUser = true;
+					break;
+				}
 			}
-		}
-		if (!foundUser) {
-			if (formContent.password) {
-				createUser({
-					username: formContent.username,
-					password: formContent.password,
-					displayName: formContent.username,
-				});
-				changeForm();
-				e.target.reset();
-			} else {
-				setWarning("invalid password");
+			// if the user doesn't exist  it will check that the passwords match
+			if (!foundUser) {
+				//If passwords match, we will call a POST route using the information from the form
+				if (formContent.password === formContent.confirm) {
+					createUser({
+						username: formContent.username,
+						password: formContent.password,
+						displayname: formContent.username,
+					});
+					changeForm();
+					e.target.reset();
+					setFormContent(initialState);
+				} else {
+					setWarning("passwords don't match");
+				}
 			}
+		} else {
+			setWarning("Please complete all fields");
 		}
 	};
 
@@ -269,9 +223,6 @@ const LoginForm = (props) => {
 	//rendering the active form
 	return (
 		<div className="form-container">
-			<div className="testusers" onClick={createTestUsers}>
-				Create Test Users
-			</div>
 			{activeForm === "login" ? loginForm : signupForm}
 		</div>
 	);

@@ -9,6 +9,7 @@ const AccessPage = (props) => {
 					<div className="whatsapp-logo"></div>
 					<h3 className="title-text">WHATSAPP WEB</h3>
 				</div>
+				<div className="empty-space"></div>
 			</div>
 			<div className="access-body"></div>
 			<div className="access-overlay">

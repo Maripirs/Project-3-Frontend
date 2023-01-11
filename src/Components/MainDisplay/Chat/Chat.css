@@ -12,6 +12,7 @@
 	justify-content: space-between;
 	align-items: center;
 	padding: 10px 16px;
+	border-radius: 0 5px 0 0;
 }
 .contact-info {
 	display: flex;
@@ -87,6 +88,7 @@
 	background-color: #202c33;
 	height: 60px;
 	display: flex;
+	border-radius: 0 0 5px 0;
 }
 
 .type-message-bar input {
