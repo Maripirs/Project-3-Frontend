@@ -3,10 +3,12 @@ body {
 	font-family: "Roboto";
 	overflow: auto;
 	height: 100%;
+	max-height: -webkit-fill-available;
 }
 html {
 	overflow: hidden;
 	height: 100%;
+	max-height: -webkit-fill-available;
 }
 
 #root {
