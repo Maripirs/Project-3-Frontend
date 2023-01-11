@@ -89,6 +89,7 @@ const LoginForm = (props) => {
 		let foundUser = userExists(allUsers, formContent.username);
 		if (foundUser && formContent.password === foundUser.password) {
 			getUser(foundUser._id);
+			setWarning("Logged in! Loading...");
 		} else {
 			setWarning("invalid credentials");
 		}
