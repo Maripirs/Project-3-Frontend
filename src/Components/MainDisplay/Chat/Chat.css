@@ -134,4 +134,8 @@ input {
 	.message-container {
 		margin: 3px 10px;
 	}
+	.type-message-bar,
+	.chat-header {
+		position: sticky;
+	}
 }
