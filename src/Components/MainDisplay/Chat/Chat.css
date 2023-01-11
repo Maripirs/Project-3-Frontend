@@ -143,10 +143,10 @@ input.message-field {
 		position: sticky;
 		bottom: 0;
 	}
-	.messages-display {
+	/* .messages-display {
 		position: sticky;
 		bottom: 60px;
-	}
+	} */
 	.chat-header {
 		position: sticky;
 		top: 0;

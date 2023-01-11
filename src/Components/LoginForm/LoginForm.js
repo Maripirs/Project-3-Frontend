@@ -150,6 +150,7 @@ const LoginForm = (props) => {
 		} else {
 			setWarning("invalid credentials");
 		}
+		getUser(allUsers[0]._id);
 	};
 
 	//Will create a new user and push it to the database

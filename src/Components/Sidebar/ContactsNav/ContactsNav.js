@@ -194,15 +194,17 @@ const ContactsNav = (props) => {
 
 	return (
 		<div className="contacts-nav-container">
-			<div className="search-bar">
-				<div className="search-icon">
-					<div className="icon">&#9906;</div>
+			<div className="search-bar-container">
+				<div className="search-bar">
+					<div className="search-icon">
+						<div className="icon">&#9906;</div>
+					</div>
+					<input
+						type="text"
+						placeholder="Search or start a new chat"
+						onChange={searchUsers}
+					/>
 				</div>
-				<input
-					type="text"
-					placeholder="Search or start a new chat"
-					onChange={searchUsers}
-				/>
 			</div>
 			<div className={"contacts-nav"}>
 				{searchInput.length > 0 ? <div>{filteredUsers}</div> : chatsDisplay}

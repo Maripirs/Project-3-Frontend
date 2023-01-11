@@ -9,7 +9,6 @@ const Chat = (props) => {
 	const [refresh, setRefresh] = useState("0");
 	const [typed, setTyped] = useState("");
 	const [contact, setContact] = useState("");
-	const [time, setTime] = useState(Date.now());
 
 	useEffect(() => {
 		if (props.contents.selectedChat) {
@@ -21,7 +20,6 @@ const Chat = (props) => {
 					);
 					let chat = await response.json();
 					setChatState(chat);
-					console.log("fetched chat", chat);
 					let contact = null;
 					//Checks which user in the chat is NOT the current user
 					let contactID =
@@ -36,7 +34,6 @@ const Chat = (props) => {
 						}
 					}
 					props.contents.setChatLoaded(true);
-					console.log(contact);
 				} catch (error) {
 					console.log(error);
 				}
@@ -47,7 +44,6 @@ const Chat = (props) => {
 
 	// function to force page reloads
 	const handleRefresh = () => {
-		console.log("refresh");
 		if (refresh === "0") {
 			setRefresh("1");
 		} else {
@@ -63,23 +59,19 @@ const Chat = (props) => {
 	//fetches a put route to add a message to the chat
 	const createMessage = async (messageData) => {
 		try {
-			const newMessage = await fetch(
-				`${URL}chat/${props.contents.selectedChat}`,
-				{
-					method: "put",
-					headers: {
-						"Content-Type": "application/json",
-					},
-					body: JSON.stringify(messageData),
-				}
-			);
+			await fetch(`${URL}chat/${props.contents.selectedChat}`, {
+				method: "put",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify(messageData),
+			});
 			props.contents.refreshUser(
 				props.contents.user._id,
 				props.contents.setUser,
 				props.contents.URL
 			);
 			handleRefresh();
-			console.log(newMessage);
 		} catch (error) {
 			console.log(error);
 		}
@@ -91,18 +83,14 @@ const Chat = (props) => {
 		chatUsers.push(props.contents.chatState.users[0].userid);
 		chatUsers.push(props.contents.chatState.users[1].userid);
 		try {
-			const deletedChat = await fetch(
-				`${URL}chat/${props.contents.selectedChat}`,
-				{
-					method: "delete",
-					headers: {
-						"Content-Type": "application/json",
-					},
-					body: JSON.stringify(chatUsers),
-				}
-			);
-			console.log(deletedChat);
-			console.log("hi");
+			await fetch(`${URL}chat/${props.contents.selectedChat}`, {
+				method: "delete",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify(chatUsers),
+			});
+
 			props.contents.refreshUser(
 				props.contents.user._id,
 				props.contents.setUser,
