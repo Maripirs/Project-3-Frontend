@@ -47,7 +47,7 @@ const Chat = (props) => {
 
 	// function to force page reloads
 	const handleRefresh = () => {
-		console.log(refresh);
+		console.log("refresh");
 		if (refresh === "0") {
 			setRefresh("1");
 		} else {
@@ -130,9 +130,6 @@ const Chat = (props) => {
 		setTyped(e.target.value);
 	};
 
-	useEffect(() => {
-		const interval = setInterval(handleRefresh, 2000);
-	}, []);
 	return (
 		<>
 			{/* if the chat fetch is ready. it renders a normal chat window */}
