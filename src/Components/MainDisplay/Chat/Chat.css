@@ -111,9 +111,12 @@
 	width: 50px;
 	font-weight: 300;
 }
-input.type-message-bar {
+input.message-field {
 	color: #e9edef;
 	font-size: 16px;
+}
+.delete:hover {
+	color: #e9edef;
 }
 @media (min-width: 850px) {
 }

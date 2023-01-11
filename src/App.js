@@ -39,11 +39,11 @@ function App() {
 	// This object is being passed around between components. it contains most of the States that we need to track through the app
 	const contents = {
 		//Deployed Backend
-		URL: "https://obscure-dawn-52977.herokuapp.com/",
+		// URL: "https://obscure-dawn-52977.herokuapp.com/",
 		//Test Backend
 		// URL: "http://localhost:4000/",
 		//Local Backend fro Github
-		// URL: "http://localhost:4005/",
+		URL: "http://localhost:4005/",
 		selectedChat: selectedChat,
 		setSelectedChat: setSelectedChat,
 		user: user,

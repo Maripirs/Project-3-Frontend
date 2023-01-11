@@ -70,7 +70,6 @@ const ContactsNav = (props) => {
 			};
 			props.contents.setChatLoaded(false);
 			let createdChat = await createChat(newChatData);
-			console.log("created chat ID", createdChat._id);
 			props.contents.setSelectedChat(createdChat._id);
 			props.contents.refreshUser(
 				props.contents.user._id,
@@ -84,15 +83,18 @@ const ContactsNav = (props) => {
 	//freeCodeCamp
 	//Using the search bar input states, it filters the list of users to display
 	const searchUsers = (e) => {
-		console.log(props.contents.userList);
 		setSearchInput(e.target.value);
-		let newUsers = props.contents.userList.filter((user) => {
-			return Object.values(user)
-				.join("")
-				.toLowerCase()
-				.includes(searchInput.toLowerCase());
-		});
-		if (searchInput !== "") {
+		let newUsers = [];
+		for (let i = 0; i < userList.length; i++) {
+			if (
+				userList[i].username
+					.toLowerCase()
+					.includes(e.target.value.toLowerCase())
+			) {
+				newUsers.push(userList[i]);
+			}
+		}
+		if (e.target.value !== "") {
 			let searchResults = newUsers.map((user, i) => {
 				return (
 					<div

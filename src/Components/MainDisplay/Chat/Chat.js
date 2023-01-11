@@ -40,7 +40,7 @@ const Chat = (props) => {
 			};
 			getChat();
 		}
-	}, [props.contents.selectedChat, refresh]);
+	}, [props.contents.selectedChat, refresh, props.contents.chatLoaded]);
 
 	const handleRefresh = () => {
 		if (refresh === "0") {
@@ -83,14 +83,18 @@ const Chat = (props) => {
 		chatUsers.push(props.contents.chatState.users[0].userid);
 		chatUsers.push(props.contents.chatState.users[1].userid);
 		try {
-			await fetch(`${URL}chat/${props.contents.selectedChat}`, {
-				method: "delete",
-				headers: {
-					"Content-Type": "application/json",
-				},
-				body: JSON.stringify(chatUsers),
-			});
-
+			const deletedChat = await fetch(
+				`${URL}chat/${props.contents.selectedChat}`,
+				{
+					method: "delete",
+					headers: {
+						"Content-Type": "application/json",
+					},
+					body: JSON.stringify(chatUsers),
+				}
+			);
+			console.log(deletedChat);
+			console.log("hi");
 			props.contents.refreshUser(
 				props.contents.user._id,
 				props.contents.setUser,
@@ -176,6 +180,7 @@ const Chat = (props) => {
 							name="message-input"
 							placeholder="Type a message"
 							onChange={handleChange}
+							className="message-field"
 						/>
 						<div type="submit" className="send-button" onClick={sendMessage}>
 							{">"}{" "}
@@ -186,6 +191,10 @@ const Chat = (props) => {
 				<>
 					<div className="chat-container">
 						<div className="chat-header ">
+							<div className="mobile-only icon back-to-nav" onClick={backToNav}>
+								{" "}
+								&#60;
+							</div>
 							<h2 className="loading">"Loading..."</h2>
 						</div>
 						<div className="messages-display"></div>

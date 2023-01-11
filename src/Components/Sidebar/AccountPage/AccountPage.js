@@ -41,6 +41,11 @@ const AccountPage = (props) => {
 	const handleImageChange = (e) => {
 		setImageForm(e.target.value);
 	};
+	const logout = () => {
+		props.contents.setUser(null);
+		props.contents.setChatState(null);
+		props.contents.setChatLoaded(false);
+	};
 	const updateUser = async (updates) => {
 		try {
 			const updatedUser = await fetch(`${URL}user/${props.contents.user._id}`, {
@@ -134,6 +139,9 @@ const AccountPage = (props) => {
 							<div className="edit-icon icon">&#9998;</div>
 						</div>
 					)}
+					<p className="logout" onClick={logout}>
+						Log out
+					</p>
 				</div>
 			</div>
 		</div>
