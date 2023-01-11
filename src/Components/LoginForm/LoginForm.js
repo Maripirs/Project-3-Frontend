@@ -25,7 +25,7 @@ const LoginForm = (props) => {
 		}
 	};
 
-	//Fetch for the selected user, Onlyu ocurs after a succesful login
+	//Fetch for the selected user, Only ocurs after a succesful login
 	const getUser = async (userID) => {
 		try {
 			const response = await fetch(`${URL}user/${userID}`);
@@ -62,8 +62,7 @@ const LoginForm = (props) => {
 		if (users.length > 0) {
 			for (let i = 0; i < users.length; i++) {
 				if (users[i].username.toLowerCase() === username.toLowerCase()) {
-					getUser(users[i]._id);
-					return true;
+					return users[i];
 				}
 			}
 		}
@@ -145,7 +144,9 @@ const LoginForm = (props) => {
 	//Will check if the user credentials match something in the database
 	const loginSubmit = (e) => {
 		e.preventDefault();
-		if (userExists(allUsers, formContent.username)) {
+		let foundUser = userExists(allUsers, formContent.username);
+		if (foundUser) {
+			getUser(foundUser._id);
 		} else {
 			setWarning("invalid credentials");
 		}
@@ -180,6 +181,7 @@ const LoginForm = (props) => {
 		}
 	};
 
+	//keeping track of updates on the form
 	const handleChange = (e) => {
 		setFormContent({ ...formContent, [e.target.name]: e.target.value });
 	};
@@ -263,6 +265,7 @@ const LoginForm = (props) => {
 		</>
 	);
 
+	//rendering the active form
 	return (
 		<div className="form-container">
 			<div className="testusers" onClick={createTestUsers}>

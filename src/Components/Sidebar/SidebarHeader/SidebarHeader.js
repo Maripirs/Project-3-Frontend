@@ -1,6 +1,7 @@
 import "./SidebarHeader.css";
 
 const SidebarHeader = (props) => {
+	//forcing a userRefresh when pressing the refresn Icon
 	const refreshFunction = () => {
 		props.contents.refreshUser(
 			props.contents.user._id,
@@ -8,6 +9,7 @@ const SidebarHeader = (props) => {
 			props.contents.URL
 		);
 	};
+	//If user click on the dots, Account page will render
 	const handleSettings = () => {
 		props.setPage("account");
 	};

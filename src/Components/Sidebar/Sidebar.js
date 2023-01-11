@@ -6,12 +6,14 @@ import ContactsNav from "./ContactsNav/ContactsNav";
 import AccountPage from "./AccountPage/AccountPage";
 
 const Sidebar = (props) => {
+	// State that keeps track of where the User is within the sidebar
 	const [page, setPage] = useState("nav");
 
 	return (
 		<div
 			className={
 				"sidebar-container " +
+				//for responsive design. sidebar will not display if the user is currently on Main Display
 				(props.contents.mobileView === "side"
 					? "mobile-active"
 					: "mobile-inactive")

@@ -68,6 +68,7 @@ const ContactsNav = (props) => {
 			let newChatData = {
 				users: usersArray,
 			};
+			//assigning the new chat to selected and refreshing the User Data to make sure it renders
 			props.contents.setChatLoaded(false);
 			let createdChat = await createChat(newChatData);
 			props.contents.setSelectedChat(createdChat._id);
@@ -80,7 +81,6 @@ const ContactsNav = (props) => {
 		}
 	};
 
-	//freeCodeCamp
 	//Using the search bar input states, it filters the list of users to display
 	const searchUsers = (e) => {
 		setSearchInput(e.target.value);
@@ -95,6 +95,7 @@ const ContactsNav = (props) => {
 			}
 		}
 		if (e.target.value !== "") {
+			//html elements for search results
 			let searchResults = newUsers.map((user, i) => {
 				return (
 					<div
@@ -139,7 +140,7 @@ const ContactsNav = (props) => {
 						break;
 					}
 				}
-
+				//Html elements for current chats
 				return (
 					<div
 						className={

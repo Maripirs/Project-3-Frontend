@@ -2,7 +2,7 @@ import "./MainDisplay.css";
 import Chat from "./Chat/Chat.js";
 
 const MainDisplay = (props) => {
-	// const selectedChat = props.contents.selectedChat;
+	//welcome page displayes while there's no chat selected
 	const welcomePage = (
 		<div className="welcome-page">
 			<div className="whatsapp image"></div>
@@ -17,6 +17,7 @@ const MainDisplay = (props) => {
 		<div
 			className={
 				"main-display " +
+				//for responsive design. sidebar will not display if the user is currently on sidebar
 				(props.contents.mobileView === "main"
 					? "mobile-active"
 					: "mobile-inactive")

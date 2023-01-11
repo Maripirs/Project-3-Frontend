@@ -9,8 +9,11 @@ const Chat = (props) => {
 	const [refresh, setRefresh] = useState("0");
 	const [typed, setTyped] = useState("");
 	const [contact, setContact] = useState("");
+	const [time, setTime] = useState(Date.now());
+
 	useEffect(() => {
 		if (props.contents.selectedChat) {
+			//fetch the selected chat
 			const getChat = async () => {
 				try {
 					const response = await fetch(
@@ -42,7 +45,9 @@ const Chat = (props) => {
 		}
 	}, [props.contents.selectedChat, refresh, props.contents.chatLoaded]);
 
+	// function to force page reloads
 	const handleRefresh = () => {
+		console.log(refresh);
 		if (refresh === "0") {
 			setRefresh("1");
 		} else {
@@ -50,10 +55,12 @@ const Chat = (props) => {
 		}
 	};
 
+	//Only for mobile, used to change the active view to the sidebar
 	const backToNav = () => {
 		props.contents.setMobileView("side");
 	};
 
+	//fetches a put route to add a message to the chat
 	const createMessage = async (messageData) => {
 		try {
 			const newMessage = await fetch(
@@ -78,6 +85,7 @@ const Chat = (props) => {
 		}
 	};
 
+	//fetches a delete route for a specific chat and modifies the users to remove the reference
 	const deleteChat = async () => {
 		let chatUsers = [];
 		chatUsers.push(props.contents.chatState.users[0].userid);
@@ -101,11 +109,13 @@ const Chat = (props) => {
 				props.contents.URL
 			);
 			props.contents.setSelectedChat(null);
+			props.contents.setMobileView("side");
 		} catch (error) {
 			console.log(error);
 		}
 	};
 
+	//event handler for new message
 	const sendMessage = (e) => {
 		e.preventDefault();
 		let newMessage = {
@@ -120,8 +130,12 @@ const Chat = (props) => {
 		setTyped(e.target.value);
 	};
 
+	useEffect(() => {
+		const interval = setInterval(handleRefresh, 2000);
+	}, []);
 	return (
 		<>
+			{/* if the chat fetch is ready. it renders a normal chat window */}
 			{props.contents.chatLoaded && chatState ? (
 				<div className="chat-container">
 					<div className="chat-header">
@@ -188,9 +202,11 @@ const Chat = (props) => {
 					</form>
 				</div>
 			) : (
+				// if the chat is not ready, display loading screen
 				<>
 					<div className="chat-container">
 						<div className="chat-header ">
+							{/* mobile only. Gives an exit from the chat menu */}
 							<div className="mobile-only icon back-to-nav" onClick={backToNav}>
 								{" "}
 								&#60;
