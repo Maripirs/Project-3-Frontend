@@ -30,8 +30,8 @@
 }
 
 .account-image {
-	height: 100%;
-	aspect-ratio: 1;
+	height: 300px;
+	width: 300px;
 	background-image: URL("https://as2.ftcdn.net/v2/jpg/02/15/84/43/1000_F_215844325_ttX9YiIIyeaR7Ne6EaLLjMAmy4GvPC69.jpg");
 	background-size: cover;
 	background-position: center;
@@ -109,8 +109,8 @@ input.user-form {
 		align-items: center;
 	}
 	.account-image {
-		height: 100%;
-		aspect-ratio: 1;
+		height: 200px;
+		width: 200px;
 	}
 	.account-info-container {
 		overflow-y: scroll;

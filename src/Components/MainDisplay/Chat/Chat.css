@@ -111,10 +111,12 @@
 	width: 50px;
 	font-weight: 300;
 }
-input {
+input.type-message-bar {
 	color: #e9edef;
+	font-size: 16px;
 }
-
+@media (min-width: 850px) {
+}
 /* Tablet? */
 @media (max-width: 850px) {
 	.back-to-nav {
