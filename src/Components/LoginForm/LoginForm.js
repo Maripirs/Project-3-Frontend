@@ -61,7 +61,7 @@ const LoginForm = (props) => {
 	const userExists = (users, username) => {
 		if (users.length > 0) {
 			for (let i = 0; i < users.length; i++) {
-				if (users[i].username === username) {
+				if (users[i].username.toLowerCase() === username.toLowerCase()) {
 					getUser(users[i]._id);
 					return true;
 				}
@@ -156,7 +156,10 @@ const LoginForm = (props) => {
 		e.preventDefault();
 		let foundUser = false;
 		for (let i = 0; i < props.contents.userList.length; i++) {
-			if (props.contents.userList[i].username === formContent.username) {
+			if (
+				props.contents.userList[i].username.toLowerCase() ===
+				formContent.username.toLowerCase()
+			) {
 				setWarning("username not available");
 				foundUser = true;
 				break;

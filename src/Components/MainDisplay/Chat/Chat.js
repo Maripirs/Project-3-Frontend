@@ -18,7 +18,6 @@ const Chat = (props) => {
 					);
 					let chat = await response.json();
 					setChatState(chat);
-					props.contents.setChatLoaded(true);
 					console.log("fetched chat", chat);
 					let contact = null;
 					//Checks which user in the chat is NOT the current user
@@ -33,6 +32,7 @@ const Chat = (props) => {
 							break;
 						}
 					}
+					props.contents.setChatLoaded(true);
 					console.log(contact);
 				} catch (error) {
 					console.log(error);
@@ -79,16 +79,17 @@ const Chat = (props) => {
 	};
 
 	const deleteChat = async () => {
+		let chatUsers = [];
+		chatUsers.push(props.contents.chatState.users[0].userid);
+		chatUsers.push(props.contents.chatState.users[1].userid);
 		try {
-			const deletedChat = await fetch(
-				`${URL}chat/${props.contents.selectedChat}`,
-				{
-					method: "delete",
-					headers: {
-						"Content-Type": "application/json",
-					},
-				}
-			);
+			await fetch(`${URL}chat/${props.contents.selectedChat}`, {
+				method: "delete",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify(chatUsers),
+			});
 
 			props.contents.refreshUser(
 				props.contents.user._id,
@@ -108,10 +109,6 @@ const Chat = (props) => {
 			user: `${props.contents.user._id}`,
 		};
 		createMessage(newMessage);
-		// //this should probably be a new fetch - refresh chat
-		// let newMessages = [...chatState.messages, newMessage];
-		// let newChatState = { ...chatState, messages: newMessages };
-		// setChatState(newChatState);
 		setTyped("");
 	};
 
@@ -121,7 +118,7 @@ const Chat = (props) => {
 
 	return (
 		<>
-			{props.contents.chatLoaded ? (
+			{props.contents.chatLoaded && chatState ? (
 				<div className="chat-container">
 					<div className="chat-header">
 						<div className="contact-info">
@@ -161,10 +158,10 @@ const Chat = (props) => {
 										<div className="message-container">
 											<div className="message-content">{message.content}</div>
 											<div className="message-timestamp">
-												{props.contents.formatTimestamp(
+												{/* {props.contents.formatTimestamp(
 													message.createdAt,
 													"time"
-												)}
+												)} */}
 											</div>
 										</div>
 									</div>
