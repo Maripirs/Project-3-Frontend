@@ -136,8 +136,12 @@ input.type-message-bar {
 	.message-container {
 		margin: 3px 10px;
 	}
-	.type-message-bar,
+	.type-message-bar {
+		position: sticky;
+		bottom: 0;
+	}
 	.chat-header {
 		position: sticky;
+		top: 0;
 	}
 }
